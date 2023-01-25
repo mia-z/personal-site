@@ -1,12 +1,44 @@
 <script lang="ts">
+    import { slide, fly } from "svelte/transition";
+    import { quintOut } from "svelte/easing"
 
+    let shouldShow = false;
 </script>
 
 <div class={"relative flex flex-col h-full"}>
-    <img class={`w-72 z-20 rounded-full absolute transition-transform top-[calc(10%)] left-[calc(50%-144px)] border-russian-violet-600 border-8`} src={"/me.jpg"} alt="omg, it me !" />
-    <div class={""}>
-
+    <img class={`w-72 z-20 rounded-full mx-auto mt-20 transition-transform border-russian-violet-600 border-8 shadow-[0_0_0_20px_rgba(73,23,71,0.4)]`} src={"/me.jpg"} alt="omg, it me !" />
+    <div on:animationend={() => shouldShow = true} class={"mt-10 middle-line text-white grid grid-cols-6"}>
+        <div class={"col-start-3 text-right flex flex-col cursor-default select-none"}>
+            {#if shouldShow}
+                <div class={"readex mx-3 mb-2"} in:fly={{ delay: 250, duration: 450, easing: quintOut, x: -50 }}>
+                    Ryan
+                </div>
+                <div class={"readex mx-3 mb-2"}  in:fly={{ delay: 450, duration: 450, easing: quintOut, x: -50 }}>
+                    Sweden
+                </div>
+                <div class={"readex mx-3 mb-2"}  in:fly={{ delay: 650, duration: 450, easing: quintOut, x: -50 }}>
+                    Systems developer
+                </div>
+                <div class={"readex mx-3"}  in:fly={{ delay: 850, duration: 450, easing: quintOut, x: -50 }}>
+                    Fullstack web
+                </div>
+            {/if}
+        </div>
+        <div class={"col-start-4 border-l flex flex-col cursor-default select-none"}>
+            {#if shouldShow}
+                <div class={"readex mx-3 mb-2"} in:fly={{ delay: 1250, duration: 250, easing: quintOut, x: 50 }}>
+                    Projects
+                </div>
+                <div class={"readex mx-3 mb-2"} in:slide={{ delay: 1500, duration: 250, easing: quintOut }}>
+                    <a class={"cursor-pointer underline hover:translate-x-1 transition-transform"} href={"/projects/appstiny"}>Appstiny</a>
+                </div>
+                <div class={"readex mx-3 mb-2"} in:slide={{ delay: 1600, duration: 250, easing: quintOut }}>
+                    <a class={"cursor-pointer underline hover:translate-x-1 transition-transform"} href={"/projects/buxt"}>buxt</a>
+                </div>
+                <div class={"readex mx-3 mb-2"} in:slide={{ delay: 1700, duration: 250, easing: quintOut }}>
+                    <a class={"cursor-pointer underline hover:translate-x-1 transition-transform"} href={"/projects/spotty-api"}>Spotty API</a>
+                </div>
+            {/if}
+        </div>
     </div>
 </div>
-<!-- 
-0_0_0_20px_rgba(73,23,71,0.4) -->

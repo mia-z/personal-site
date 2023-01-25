@@ -102,3 +102,18 @@ input[type=number] {
     background-color: rgb(54, 83, 20);
 background-image: radial-gradient(at 44% 74%, rgb(220, 252, 231) 0, transparent 98%), radial-gradient(at 30% 34%, rgb(77, 124, 15) 0, transparent 46%), radial-gradient(at 26% 41%, rgb(99, 102, 241) 0, transparent 88%), radial-gradient(at 75% 17%, rgb(244, 244, 245) 0, transparent 94%), radial-gradient(at 81% 7%, rgb(245, 245, 244) 0, transparent 56%), radial-gradient(at 62% 88%, rgb(134, 239, 172) 0, transparent 48%);
 }
+
+.middle-line {
+    animation: middle-line 1250ms cubic-bezier(0.215, 0.610, 0.355, 1) 500ms 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes middle-line {
+    from {
+        height: 0;
+    }
+
+    to {
+        height: 144px;
+    }
+}
