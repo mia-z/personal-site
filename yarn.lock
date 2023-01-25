@@ -1502,6 +1502,7 @@ __metadata:
     rollup: ^3.7.5
     sass: ^1.57.1
     svelte: ^3.55.1
+    svelte-adapter-bun: ^0.4.3
     svelte-check: ^2.10.2
     svelte-icons: ^2.1.0
     svelte-preprocess: ^5.0.1
@@ -2291,6 +2292,15 @@ __metadata:
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
   checksum: 53b1e247e68e05db7b3808b99b892bd36fb096e6fba213a06da7fab22045e97597db425c724f2bbd6c99a3c295e1e73f3e4de78592289f38431049e1277ca0ae
+  languageName: node
+  linkType: hard
+
+"svelte-adapter-bun@npm:^0.4.3":
+  version: 0.4.3
+  resolution: "svelte-adapter-bun@npm:0.4.3"
+  dependencies:
+    tiny-glob: ^0.2.9
+  checksum: 7f3d57af48d2c564c059685822a205fcc8ebd9000abd02fa5e4de277e6759174080dd37b722d3473cd4b83fba5d797213f895211beba9a1633b0de61f3b1dd8c
   languageName: node
   linkType: hard
 
