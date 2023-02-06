@@ -1644,6 +1644,7 @@ __metadata:
     svelte-check: ^2.10.2
     svelte-icons: ^2.1.0
     svelte-preprocess: ^5.0.1
+    swiper: ^9.0.2
     tailwindcss: ^3.2.4
     tslib: ^2.4.1
     typescript: ^4.9.4
@@ -2443,6 +2444,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ssr-window@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "ssr-window@npm:4.0.2"
+  checksum: df182600927f4f3225224cf8c02338ea637c9750519505bbfb9a9236741a2a7ec088386fb948bca7b447b8303d9109e7dc7672e3de041c79ac2a0e03665af7d2
+  languageName: node
+  linkType: hard
+
 "ssri@npm:^9.0.0":
   version: 9.0.1
   resolution: "ssri@npm:9.0.1"
@@ -2649,6 +2657,15 @@ __metadata:
   version: 3.55.1
   resolution: "svelte@npm:3.55.1"
   checksum: ce66391bae68b2055a0a63ee0477e73f036247d4dd5abd5240372d5f4971a452ad29c4ef2c630ab089697429edd61756ef7b764e7597ad7e897ce9f8a9457fec
+  languageName: node
+  linkType: hard
+
+"swiper@npm:^9.0.2":
+  version: 9.0.2
+  resolution: "swiper@npm:9.0.2"
+  dependencies:
+    ssr-window: ^4.0.2
+  checksum: 2715de6413473cb8c13e3b75d42e96fc2b0b6eefc20b22b52f97bd53dd350e16e0d9b83af55758ab44c90dc749feaeb275f8c0e09bfa3853b4bafefb202f60f5
   languageName: node
   linkType: hard
 

@@ -32,7 +32,8 @@
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "rollup": "^3.7.5",
-    "svelte-icons": "^2.1.0"
+    "svelte-icons": "^2.1.0",
+    "swiper": "^9.0.2"
   },
   "packageManager": "yarn@3.3.1"
 }
