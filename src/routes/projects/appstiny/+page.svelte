@@ -36,6 +36,9 @@
             <FaArrowRight />
         </div>
     </div>
+    <div class={"h-10 flex mt-5"}>
+        <a class={"mx-auto"} href={"https://play.google.com/store/apps/details?id=com.miaz.dgg"} target={"_blank"}>
+            <img class={"h-20 "} src={"/en_badge_web_generic.png"} alt={"play store badge"} />
+        </a>
+    </div>
 </div>
-
-

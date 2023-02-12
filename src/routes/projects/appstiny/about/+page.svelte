@@ -8,7 +8,7 @@
             About
         </div>
         <div class={"my-2 text-lg text-text-black nunito-sans px-1 text-center"}>
-            Appsinty originally started out as a side project to work on my UI/UX and mobile development skills. As I got more and more into it, it became a pretty usable mobile client for <a class={"text-blue-600 underline"} href={"https://destiny.gg/bigscreen"}>Destiny.gg</a>.
+            Appstiny originally started out as a side project to work on my UI/UX and mobile development skills. As I got more and more into it, it became a pretty usable mobile client for <a class={"text-blue-600 underline"} href={"https://destiny.gg/bigscreen"}>Destiny.gg</a>.
             <br />
             The mobile stack consists of <a class={"text-blue-600 underline"} href={"https://capacitorjs.com/"}>Capacitor</a>/<a class={"text-blue-600 underline"} href={"https://ionic.io/"}>Ionic</a> and <a class={"text-blue-600 underline"} href={"https://reactjs.org/"}>React</a>, using <a class={"text-blue-600 underline"} href={"https://tailwindcss.com//"}>TailwindCSS</a> and <a class={"text-blue-600 underline"} href={"https://sass-lang.com/"}>SCSS</a> as styling frameworks. Behind the scenes, the destiny CDNs have been used - specifically emotes.scss and flairs.scss as to closely emulate the chat experience as possible.
             <br />
@@ -22,7 +22,6 @@
         <div class={"my-2 text-lg text-text-black nunito-sans px-1 text-center"}>
             This app does not collect or sell any data. However, it does locally save your login-key to allow for automatic logging in. Uninstalling the app will clear this data. You can remove any login keys used by this app <a class={"text-blue-600 underline"} href={"https://www.destiny.gg/profile/developer"}>here on Destiny's website</a> if you want to be 100% safe.
             <br />
-            Due to some limitations with the dgg chat-server, all messages on this app are proxied through a private websocket. This limitation is something I've truly tried to avoid as it only makes complications on my end. Maybe if this app gains more traction then Cake can sort something out for me. If this concerns you, I can give you access to the code!
         </div>
     </div>
 </div>
