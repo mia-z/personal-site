@@ -12,17 +12,17 @@
         <img class={"h-20 w-20 rounded-2xl"} src={"/assets/appstiny/play_store.png"} alt={"Store logo for Appstiny"} />
     </div>
     <slot />
-</div>
-
-<div class={"flex flex-row bottom-10 justify-center absolute w-full text-center"}>
-    <a href={"/projects/appstiny"} class={" text-white underline "}>
-        Project Home
-    </a>
-    <div class={"mx-5 border-l-2 border-l-white"} />
-
-    <a href={"/projects/appstiny/about"} class={" text-white underline "}>
-        About/Privacy
-    </a>
+    <div class={"flex flex-row  mt-auto justify-center w-full text-center"}>
+        <a href={"/projects/appstiny"} class={" text-white underline"}>
+            Project Home
+        </a>
+    
+        <div class={"mx-5 border-l-2 border-l-white"} />
+    
+        <a href={"/projects/appstiny/about"} class={" text-white underline "}>
+            About/Privacy
+        </a>
+    </div>
 </div>
 
 <style>

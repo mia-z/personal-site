@@ -8,7 +8,7 @@
 </script>
 
 <div class={"flex flex-col"}>
-    <swiper-container class={"w-64 select-none"} bind:this={swiper} effect={"cards"}>
+    <swiper-container class={"w-44 md:w-64 select-none"} bind:this={swiper} effect={"cards"}>
         <swiper-slide>
             <Image src={"/assets/appstiny/ss1.png"} />
         </swiper-slide>
@@ -36,7 +36,7 @@
             <FaArrowRight />
         </div>
     </div>
-    <div class={"h-10 flex mt-5"}>
+    <div class={"h-10 flex my-10"}>
         <a class={"mx-auto"} href={"https://play.google.com/store/apps/details?id=com.miaz.dgg"} target={"_blank"}>
             <img class={"h-20 "} src={"/en_badge_web_generic.png"} alt={"play store badge"} />
         </a>

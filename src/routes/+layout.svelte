@@ -12,10 +12,10 @@
     </title>
 </svelte:head>
 
-<div class={"h-[100vh] bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-neutral-800 via-neutral-900 to-black relative"}>
+<div class={"min-h-[100vh] md:h-[100vh] bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-neutral-800 via-neutral-900 to-black relative"}>
     <slot />
 
-    <div class={"absolute xl:w-40 w-20 gap-y-5 left-0 bottom-10 xl:h-[30vh] h-[20vh] flex flex-col-reverse border-r"}>
+    <div class={"absolute w-32 top-5 left-5 xl:w-40 md:w-20 gap-y-5 md:top-auto md:left-0 md:bottom-10 xl:h-[30vh] md:h-[20vh] flex flex-row md:flex-col-reverse md:border-r"}>
         <div class={"flex w-1/3 mx-auto text-[#dedede] mb-5 hover:text-white cursor-pointer transition-colors"}>
             <a href={"https://github.com/mia-z"} target={"_blank"} rel={"noreferrer noopener"}>
                 <IoLogoGithub />
@@ -27,7 +27,7 @@
             </a>
         </div>
     </div>
-    <div class={"absolute text-sm bottom-0 text-white text-center mx-auto left-0 w-full lobster"}>
+    <div class={"mt-5 md:absolute text-sm bottom-0 text-white text-center mx-auto left-0 w-full lobster"}>
         Made with ❤️ using <span class={"text-orange-500"}>Svelte</span>Kit        
     </div>
 </div>
