@@ -7,7 +7,7 @@
 
 </script>
 
-<div class={"flex flex-col overflow-y-scroll"}>
+<div class={"flex flex-col"}>
     <swiper-container class={"w-44 md:w-64 select-none"} bind:this={swiper} effect={"cards"}>
         <swiper-slide>
             <Image src={"/assets/appstiny/ss1.png"} />

@@ -33,10 +33,10 @@
                     <a class={"cursor-pointer underline hover:translate-x-1 transition-transform"} href={"/projects/appstiny"}>Appstiny</a>
                 </div>
                 <div class={"readex mx-3 mb-2"} in:slide={{ delay: 1600, duration: 250, easing: quintOut }}>
-                    <a class={"cursor-pointer underline hover:translate-x-1 transition-transform"} href={"/projects/buxt"}>buxt</a>
+                    <a class={"cursor-pointer underline hover:translate-x-1 transition-transform"} href={"https://github.com/mia-z/spotty-api"} target={"_blank"} rel={"noreferrer noopener"}>Spotty API</a>
                 </div>
                 <div class={"readex mx-3 mb-2"} in:slide={{ delay: 1700, duration: 250, easing: quintOut }}>
-                    <a class={"cursor-pointer underline hover:translate-x-1 transition-transform"} href={"/projects/spotty-api"}>Spotty API</a>
+                    <a class={"cursor-pointer underline hover:translate-x-1 transition-transform"} href={"https://github.com/mia-z/buxt"} target={"_blank"} rel={"noreferrer noopener"}>buxt</a>
                 </div>
             {/if}
         </div>

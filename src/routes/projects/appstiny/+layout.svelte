@@ -12,7 +12,7 @@
         <img class={"h-20 w-20 rounded-2xl"} src={"/assets/appstiny/play_store.png"} alt={"Store logo for Appstiny"} />
     </div>
     <slot />
-    <div class={"flex flex-row  mt-auto justify-center w-full text-center"}>
+    <div class={"flex flex-row justify-center my-10 w-full text-center"}>
         <a href={"/projects/appstiny"} class={" text-white underline"}>
             Project Home
         </a>
