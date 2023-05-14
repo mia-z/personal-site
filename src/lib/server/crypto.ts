@@ -1,5 +1,6 @@
 import { compare, hash, genSalt } from "bcrypt";
-import { SECRET_JWT_CODE } from "$env/static/private";
+
+const secret = import.meta.env.SECRET_JWT_CODE;
 
 const SALT_ROUNDS = 10;
 
@@ -7,4 +8,4 @@ export const HashAndSaltPassword  = async (password: string): Promise<string> =>
 
 export const VerifyPassword = async (input: string, hashToCompare: string): Promise<boolean> => await compare(input, hashToCompare);
 
-export const encodedJWTSecret = new TextEncoder().encode(SECRET_JWT_CODE);
+export const encodedJWTSecret = new TextEncoder().encode(secret);
