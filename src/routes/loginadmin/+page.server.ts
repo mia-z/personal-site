@@ -1,5 +1,5 @@
 import type { Actions } from "./$types";
-import { JsonWebTokenError, sign, verify } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { VerifyPassword } from "$lib/server/crypto";
 import prisma from "$lib/prisma";
 import { SECRET_JWT_CODE } from "$env/static/private";
@@ -31,7 +31,7 @@ export const actions = {
         const validPass = await VerifyPassword(validationResult.data.password, user.passwordHash);
 
         if (validPass) {
-            const cookieToken = sign(user.name, SECRET_JWT_CODE);
+            const cookieToken = jwt.sign(user.name, SECRET_JWT_CODE);
             cookies.set("token", cookieToken);
             locals.username = user.name;
             return;

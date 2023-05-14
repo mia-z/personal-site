@@ -1,6 +1,6 @@
 import { redirect, error, type Handle, type RequestEvent, type HandleServerError } from "@sveltejs/kit";
 import { SECRET_JWT_CODE } from "$env/static/private";
-import { JsonWebTokenError, verify } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { sequence } from "@sveltejs/kit/hooks";
 
 const protectedRoutes: Handle = (async ({ event, resolve }) => {
@@ -12,7 +12,7 @@ const protectedRoutes: Handle = (async ({ event, resolve }) => {
             throw redirect(302, "/loginadmin");
         }
 
-        const user = await verify(token, SECRET_JWT_CODE);
+        const user = await jwt.verify(token, SECRET_JWT_CODE);
         
         if (!user) {
             if (isApiRoute(event)) throw error(401);
@@ -34,7 +34,7 @@ const injectUserInfo: Handle = (async ({ event, resolve }) => {
         return resolve(event);
     }
 
-    const user = await verify(token, SECRET_JWT_CODE);
+    const user = await jwt.verify(token, SECRET_JWT_CODE);
         
     if (!user) {
         event.cookies.delete("token");
@@ -48,7 +48,7 @@ const injectUserInfo: Handle = (async ({ event, resolve }) => {
 export const handle = sequence(protectedRoutes, injectUserInfo);
 
 export const handleError = (async ({ error, event }) => {
-    if (error instanceof JsonWebTokenError) {
+    if (error instanceof jwt.JsonWebTokenError) {
         return { 
             message: error.message
         };
