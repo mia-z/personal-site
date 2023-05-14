@@ -1,41 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Abyssinica+SIL&family=Lato:wght@300;400;700&family=Lobster&family=Lora:wght@400;500;600&family=Mulish:wght@400;500;600&family=Nunito:wght@300;400;500;600&family=Open+Sans:wght@300;400;500;600&family=Readex+Pro&family=Roboto:wght@300;400;500&family=Signika:wght@400;500;600&family=Varela+Round&family=Work+Sans:wght@300;400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans:wght@400;700&family=Roboto+Flex:wght@400;700&family=Roboto+Mono&display=swap");
 
 html, body, #app {
-    background-color: whitesmoke;
+    
 }
 
-$lato: 'Lato', sans-serif;
 $lobster: 'Lobster', cursive;
-$lora: 'Lora', serif;
-$mulish: 'Mulish', sans-serif;
-$nunito: 'Nunito', sans-serif;
 $open-sans: 'Open Sans', sans-serif;
-$roboto: 'Roboto Slab', serif;
-$work-sans: 'Work Sans', sans-serif;
-$abyssinica: 'Abyssinica SIL', serif;
-$dot-matrix: 'Dot Matrix', serif;
-$signika: 'Signika Negative', sans-serif;
-$verala-round: 'Varela Round', sans-serif;
-$readex: 'Readex Pro', sans-serif;
-
-.lato {
-    font-family: $lato;
-}
+$roboto: 'Roboto Flex', sans-serif;
+$roboto-monospace: 'Roboto Mono', monospace;
 
 .lobster {
     font-family: $lobster;
-}
-
-.lora {
-    font-family: $lora;
-}
-
-.mulish {
-    font-family: $mulish;
-}
-
-.nunito {
-    font-family: $nunito;
 }
 
 .open-sans {
@@ -46,24 +21,8 @@ $readex: 'Readex Pro', sans-serif;
     font-family: $roboto;
 }
 
-.work-sans {
-    font-family: $work-sans;
-}
-
-.abyssinica {
-    font-family: $abyssinica;
-}
-
-.signika {
-    font-family: $signika;
-}
-
-.verala-round {
-    font-family: $verala-round;
-}
-
-.readex {
-    font-family: $readex;
+.roboto-monospace {
+    font-family: $roboto-monospace;
 }
 
 //REMOVE UGLY ARROWS FROM input[type=number]
@@ -98,22 +57,76 @@ input[type=number] {
     background: var(--scrollbar-background);
 }
 
-.bg-damp-sky {
-    background-color: rgb(54, 83, 20);
-background-image: radial-gradient(at 44% 74%, rgb(220, 252, 231) 0, transparent 98%), radial-gradient(at 30% 34%, rgb(77, 124, 15) 0, transparent 46%), radial-gradient(at 26% 41%, rgb(99, 102, 241) 0, transparent 88%), radial-gradient(at 75% 17%, rgb(244, 244, 245) 0, transparent 94%), radial-gradient(at 81% 7%, rgb(245, 245, 244) 0, transparent 56%), radial-gradient(at 62% 88%, rgb(134, 239, 172) 0, transparent 48%);
+:root {
+	--background-circle: #005;
+	--primary-circle: #88D5BF;
+	--secondary-circle: #5D6BF8;
+	--third-circle: #e27fcb;
 }
 
-.middle-line {
-    animation: middle-line 1250ms cubic-bezier(0.215, 0.610, 0.355, 1) 500ms 1;
-    animation-fill-mode: forwards;
+.shape {
+    position: absolute;
+    top: calc(50% - 200px);
+    left: calc(50% - 200px);
+    animation: morphing-shadow 8s ease-in-out infinite alternate;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    height: 400px;
+    width: 400px;
 }
 
-@keyframes middle-line {
-    from {
-        height: 0;
+.morphing-shadow {
+    animation: morphing-shadow 8s ease-in-out infinite alternate;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+}
+
+@keyframes morph {
+    0% {
+        border-radius:  60% 40% 30% 70% / 60% 30% 70% 40%;
+        background: linear-gradient(45deg, var(--primary-circle) 0%, var(--secondary-circle) 100%);
+    } 
+    
+    50% {
+        border-radius:  30% 60% 70% 40% / 50% 60% 30% 60%;
+        background: linear-gradient(45deg, var(--third-circle) 0%, var(--secondary-circle) 100%);
     }
+    
+    100% {
+        border-radius:  60% 40% 30% 70% / 60% 30% 70% 40%;
+        background: linear-gradient(45deg, var(--primary-circle) 0%, var(--secondary-circle) 100%);
+    } 
+}
 
-    to {
-        height: 144px;
+@keyframes morphing-shadow {
+    0% {
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        box-shadow: 15px 15px 50px rgba(0,0,0,0.2);
+    }
+    25% { 
+        border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+    }
+    50% {
+        border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+        box-shadow: -10px -5px 50px rgba(12,0,12,0.2);
+    }
+    75% {
+        border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
     }
 }
+
+#parallax-root {
+}
+
+#parallax {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-image: 
+        url("/nebuladrystars.png"), 
+        url("/nebula2.png"),
+        url("/nebulawetstars.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position: 50% 50%;
+}
+
+@import "./daisy-overrides.scss";

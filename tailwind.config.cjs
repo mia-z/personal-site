@@ -13,15 +13,10 @@ module.exports = {
 				128: "32rem",
 				144: "36rem",
 			},
-			colors: {
-				"text-black": "#404040",
-				"cornflower-blue": "#739de7",
-				"russian-violet-300": "#47295B",
-				"russian-violet-600": "#491747",
-				"indian-red": "#C65A63",
-				"tuscany": "#C49AA6",
-				"linked-in-blue": "#0072b1"				
-			},
 		},
+	},
+	plugins: [require("daisyui"), require("@tailwindcss/typography")],
+	daisyui: {
+		themes: ["dark"]
 	}
 };
