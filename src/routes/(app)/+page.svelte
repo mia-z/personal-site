@@ -36,7 +36,8 @@
     <div class={"relative min-h-screen"} id={"parallax"}>
         <div on:mouseenter={() => onSideHover("left")} on:mouseleave={() => offSideHover()} class={`overflow-y-scroll styled-scrollbars glass absolute top-0 left-0 right-1/2 h-full origin-left bg-transparent z-10 transition-all hover:right-[46%] ${hoveredSide === "right" ? "right-[54%]" : ""}`}>
             {#if hoveredSide === "left"}
-                <div in:fly={{ duration: 500, y: 50, delay: 500 }} out:fly={{ duration: 500, y: 50 }} class={"prose w-[calc(100vw/2)] flex flex-col text-center"}>
+                <div in:fade={{ duration: 500, delay: 500 }} out:fade={{ duration: 500 }} class={"absolute z-10 top-0 left-0 w-full h-full stars-bg"}></div>
+                <div in:fly={{ duration: 500, y: 50, delay: 500 }} out:fly={{ duration: 500, y: 50 }} class={"prose absolute z-20 w-[calc(100vw/2)]  flex flex-col text-center"}>
                     <h2>
                         Hello
                     </h2>
@@ -52,7 +53,7 @@
                 </div>
             {:else}
                 <div in:scale={{ duration: 500, delay: 500 }} out:scale={{ duration: 500 }} class={"prose h-1/2 w-[calc(100vw/2)] p-3 flex flex-col text-center"}>
-                    <div class={"m-auto h-20 w-40 lobster morphing-shadow rounded-full flex relative"}>
+                    <div class={"m-auto h-20 stars-bg w-40 lobster morphing-shadow rounded-full flex relative"}>
                         <h1 class={"m-auto"}>
                             About
                         </h1>
