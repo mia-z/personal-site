@@ -40,7 +40,7 @@ input[type=number] {
 
 .styled-scrollbars {
     // --scrollbar-foreground: rgb(66, 65, 65);
-    --scrollbar-foreground: rgb(56 189 248);
+    --scrollbar-foreground: rgb(190, 190, 190);
     --scrollbar-background: rgba(0,0,0,0);
     /* Foreground, Background */
     scrollbar-color: var(--scrollbar-foreground) var(--scrollbar-background);
@@ -113,17 +113,14 @@ input[type=number] {
     }
 }
 
-#parallax-root {
-}
-
 #parallax {
     position: relative;
     width: 100%;
     height: 100vh;
     background-image: 
-        url("/nebuladrystars.png"), 
-        url("/nebula2.png"),
-        url("/nebulawetstars.png");
+        url("/nebuladrystars_web2.png"), 
+        url("/nebula2_web2.png"),
+        url("/nebulawetstars_web2.png");
     background-repeat: no-repeat;
     background-position: center;
     background-position: 50% 50%;

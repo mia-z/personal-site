@@ -34,9 +34,9 @@
         <div id="stars4"></div>
     </div>
     <div class={"relative min-h-screen"} id={"parallax"}>
-        <div on:mouseenter={() => onSideHover("left")} on:mouseleave={() => offSideHover()} class={`overflow-y-scroll glass absolute top-0 left-0 right-1/2 h-full origin-left bg-transparent z-10 transition-all hover:right-[46%] ${hoveredSide === "right" ? "right-[54%]" : ""}`}>
+        <div on:mouseenter={() => onSideHover("left")} on:mouseleave={() => offSideHover()} class={`overflow-y-scroll styled-scrollbars glass absolute top-0 left-0 right-1/2 h-full origin-left bg-transparent z-10 transition-all hover:right-[46%] ${hoveredSide === "right" ? "right-[54%]" : ""}`}>
             {#if hoveredSide === "left"}
-                <div transition:fade={{ duration: 200 }} class={"prose w-[calc(100vw/2)] styled-scrollbars p-3"}>
+                <div transition:fade={{ duration: 200 }} class={"prose w-[calc(100vw/2)] p-3"}>
                     <h1>One morning, when Gregor Samsa woke from troubled dreams.</h1>
                     <p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into 
                         a horrible vermin. He lay on his armour-like back, 
@@ -147,9 +147,9 @@
                 </div>
             {/if}
         </div>
-        <div on:mouseenter={() => onSideHover("right")} on:mouseleave={() => offSideHover()} class={`overflow-y-scroll glass absolute top-0 right-0 left-1/2 h-full origin-right bg-transparent z-10 transition-all hover:left-[46%] ${hoveredSide === "left" ? "left-[54%]" : ""}`}>
+        <div on:mouseenter={() => onSideHover("right")} on:mouseleave={() => offSideHover()} class={`overflow-y-scroll styled-scrollbars glass absolute top-0 right-0 left-1/2 h-full origin-right bg-transparent z-10 transition-all hover:left-[46%] ${hoveredSide === "left" ? "left-[54%]" : ""}`}>
             {#if hoveredSide === "right"}
-                <div transition:fade={{ duration: 200 }} class={"ml-auto text-right prose w-[calc(100vw/2)] styled-scrollbars p-3"}>
+                <div transition:fade={{ duration: 200 }} class={"ml-auto text-right prose w-[calc(100vw/2)] p-3"}>
                     <h1>One morning, when Gregor Samsa woke from troubled dreams.</h1>
                     <p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into 
                         a horrible vermin. He lay on his armour-like back, 
