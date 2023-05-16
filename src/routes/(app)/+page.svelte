@@ -1,82 +1,27 @@
 <script lang="ts">
-    import { slide, fly, fade, scale } from "svelte/transition";
-    import { quintOut } from "svelte/easing"
-    import { onMount } from "svelte";
-    import "./../../styles/star-parallax.css";
-    import { parallax } from "$lib/utils";
-
-    let loaded: boolean = false;
-
-    onMount(() => {
-        const elem: HTMLDivElement | null = document.querySelector("#parallax");
-        if (elem)
-            document.addEventListener("mousemove", (e: MouseEvent) => parallax(e, elem));
-        loaded = true;
-    });
-
-    let hoveredSide: "left" | "right" | "none" = "none";
-
-    const onSideHover = (side: "left" | "right") => {
-        hoveredSide = side;
-    }
-
-    const offSideHover = () => {
-        hoveredSide = "none";
-    }
-
+    import Fa from "svelte-fa";
+    import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 </script>
 
-<div in:fade class={"select-none"} id={"parallax-root"}>
-    <div class="bg-animation z-10">
-        <div id="stars"></div>
-        <div id="stars2"></div>
-        <div id="stars3"></div>
-        <div id="stars4"></div>
-    </div>
-    <div class={"relative min-h-screen"} id={"parallax"}>
-        <div on:mouseenter={() => onSideHover("left")} on:mouseleave={() => offSideHover()} class={`overflow-y-scroll styled-scrollbars glass absolute top-0 left-0 right-1/2 h-full origin-left bg-transparent z-10 transition-all hover:right-[46%] ${hoveredSide === "right" ? "right-[54%]" : ""}`}>
-            {#if hoveredSide === "left"}
-                <div in:fade={{ duration: 500, delay: 500 }} out:fade={{ duration: 500 }} class={"absolute z-10 top-0 left-0 w-full h-full stars-bg"}></div>
-                <div in:fly={{ duration: 500, y: 50, delay: 500 }} out:fly={{ duration: 500, y: 50 }} class={"prose absolute z-20 w-[calc(100vw/2)]  flex flex-col text-center"}>
-                    <h2>
-                        Hello
-                    </h2>
-                    <div>
-                        Hello
-                    </div>
-                    <div>
-                        Hello
-                    </div>
-                    <div>
-                        Hello
-                    </div>
-                </div>
-            {:else}
-                <div in:scale={{ duration: 500, delay: 500 }} out:scale={{ duration: 500 }} class={"prose h-1/2 w-[calc(100vw/2)] p-3 flex flex-col text-center"}>
-                    <div class={"m-auto h-20 stars-bg w-40 lobster morphing-shadow rounded-full flex relative"}>
-                        <h1 class={"m-auto"}>
-                            About
-                        </h1>
-                    </div>
-                </div>
-            {/if}
-        </div>
-        <div on:mouseenter={() => onSideHover("right")} on:mouseleave={() => offSideHover()} class={`overflow-y-scroll styled-scrollbars glass absolute top-0 right-0 left-1/2 h-full origin-right bg-transparent z-10 transition-all hover:left-[46%] ${hoveredSide === "left" ? "left-[54%]" : ""}`}>
-            {#if hoveredSide === "right"}
-                <div transition:fly={{ duration: 200, y: 50 }} class={"ml-auto text-right prose w-[calc(100vw/2)] p-3"}>
-                </div>
-            {/if}
-        </div>
-        <img draggable="false" src={"/me.jpg"} alt="omg me" class={"rounded-full h-96 morphing-shadow w-96 bg-white absolute top-[calc(50%-182px)] left-[calc(50%-182px)] z-30"} />
+<div class={"flex flex-col relative z-10"}>
+    <img draggable="false" src={"/me.jpg"} alt={"omg me"} class={"morphing-shadow mx-auto mt-20 h-96 w-96"} />
+    <div class={"prose flex flex-col mt-10 mx-auto"}>
+        <h1 class={" text-center wix-madefor-text drop-shadow-lg"}><span class={"bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-300 text-transparent"}>R</span>yan/miaz</h1>
+        <hr class={"my-3"} />
+        <li class={"action-list list-none text-xl open-sans flex flex-col"}>
+            <ul>Skills</ul>
+            <ul>Projects</ul>
+            <ul>
+                <a href={"https://github.com/mia-z"} target={"_blank"} rel={"noreferrer noopener"}>
+                    <Fa class={"hover:text-indigo-600 transition-all text-3xl"} icon={faGithub} />
+                </a>
+            </ul>
+            <ul class={"p-0 my-2 mx-auto text-base-content"}>
+                <a href={"https://www.linkedin.com/in/ryan-cockram-21a967197"} target={"_blank"} rel={"noreferrer noopener"}>
+                    <Fa class={"hover:text-fuchsia-400 transition-all text-3xl"} icon={faLinkedin} />
+                </a>
+            </ul>
+            
+        </li>
     </div>
 </div>
-
-<style>
-    .glass {
-        background: rgba(255, 255, 255, 0.05);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(2.3px);
-        -webkit-backdrop-filter: blur(2.3px);
-        border: 1px solid rgba(255, 255, 255, 0.51);
-    }
-</style>
