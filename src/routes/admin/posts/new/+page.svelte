@@ -2,9 +2,10 @@
     import MarkdownEditor from "$components/MarkdownEditor.svelte";
     import Fa from "svelte-fa";
     import { faArrowLeft, faBook, faSave } from "@fortawesome/free-solid-svg-icons";
-
+    import { goto } from "$app/navigation";
     import type { PageServerData } from "./$types";
-    export let loadData: PageServerData;
+
+    export let data: PageServerData;
 
     let markdownString: string = "";
     let markdownPreviewOpen: boolean;
@@ -14,7 +15,7 @@
     <div class={"grid grid-cols-6 grid-flow-row gap-x-4"}>
         <div class={"col-span-1 mt-auto"}>
             <button class={"btn btn-secondary btn-block"}>
-                <div class={"flex flex-row gap-x-1 justify-between"}>
+                <div on:click={() => goto("/admin/posts")} on:keyup={() => goto("/admin/posts")} class={"flex flex-row gap-x-1 justify-between"}>
                     <Fa icon={faArrowLeft} />
                     <span class={"flex my-auto"}>
                         Back

@@ -9,8 +9,12 @@
         <h1 class={" text-center wix-madefor-text drop-shadow-lg"}><span class={"bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-300 text-transparent"}>R</span>yan/miaz</h1>
         <hr class={"my-3"} />
         <li class={"action-list list-none text-xl open-sans flex flex-col"}>
-            <ul>Skills</ul>
-            <ul>Projects</ul>
+            <ul>
+                <a href={"/skills"}>Skills</a>
+            </ul>
+            <ul>
+                <a href={"/projects"}>Projects</a>
+            </ul>
             <ul>
                 <a href={"https://github.com/mia-z"} target={"_blank"} rel={"noreferrer noopener"}>
                     <Fa class={"hover:text-indigo-600 transition-all text-3xl"} icon={faGithub} />

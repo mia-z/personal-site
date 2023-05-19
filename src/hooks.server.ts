@@ -1,9 +1,8 @@
 import { redirect, error, type Handle, type RequestEvent, type HandleServerError } from "@sveltejs/kit";
 import { SECRET_JWT_CODE } from "$env/static/private";
 import jwt from "jsonwebtoken";
-import { sequence } from "@sveltejs/kit/hooks";
 
-const protectedRoutes: Handle = (async ({ event, resolve }) => {
+export const handle: Handle = (async ({ event, resolve }) => {
     if (isProtectedRoute(event)) { 
         const token = event.cookies.get("token");
 
@@ -22,30 +21,10 @@ const protectedRoutes: Handle = (async ({ event, resolve }) => {
         event.locals.username = user as string;
 
         return resolve(event);
-     } else {
-        return resolve(event);
-     }
-}) satisfies Handle;
-
-const injectUserInfo: Handle = (async ({ event, resolve }) => {
-    const token = event.cookies.get("token");
-
-    if (!token) {
-        return resolve(event);
-    }
-
-    const user = await jwt.verify(token, SECRET_JWT_CODE);
-        
-    if (!user) {
-        event.cookies.delete("token");
-        return resolve(event);
     } else {
-        event.locals.username  = user as string;
         return resolve(event);
     }
 }) satisfies Handle;
-
-export const handle = sequence(protectedRoutes, injectUserInfo);
 
 export const handleError = (async ({ error, event }) => {
     if (error instanceof jwt.JsonWebTokenError) {

@@ -9,7 +9,7 @@ import { error, fail, json, redirect,  } from "@sveltejs/kit";
 const loginSchema = z.object({
     username: z.string().nonempty("Must enter a username"),
     password: z.string().nonempty("Must enter a password")
-})
+});
 
 export const actions = {
     login: async ({ cookies, request, locals }) => {
