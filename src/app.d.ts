@@ -10,3 +10,6 @@ declare namespace App {
 declare module "@fortawesome/pro-solid-svg-icons/index.es" {
 	export * from "@fortawesome/pro-solid-svg-icons";
 }
+
+const themes = ["dark", "black", "luxury", "business", "coffee", "night", "halloween", "dracula"] as const;
+declare type DaisyThemes = typeof themes[number];
