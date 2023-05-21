@@ -28,13 +28,13 @@
     </title>
 </svelte:head>
 
-<div class={"absolute top-0 left-0 h-10 w-20 z-50"}>
+<!-- <div class={"absolute top-0 left-0 h-10 w-20 z-50"}>
     <select on:change={onThemeChange}>
         {#each themes as theme}
             <option value={theme} class={"capitalize"}>{theme}</option>
         {/each}
     </select>
-</div>
+</div> -->
 
 <div class={"min-h-[100vh] flex flex-col bg-base-300 relative select-none"}>
     <slot />

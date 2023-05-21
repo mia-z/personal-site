@@ -1,3 +1,7 @@
 div.action-list a {
     @apply bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-300  hover:text-transparent transition-all hover:underline hover:cursor-pointer p-0 my-2 mx-auto text-base-content;
 }
+
+.cute-hover-text {
+    @apply bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-300  hover:text-transparent text-base-content;
+}
