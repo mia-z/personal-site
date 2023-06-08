@@ -3,11 +3,11 @@ generator client {
 }
 
 generator zod {
-  provider = "zod-prisma"
-  output = "./zod"
-  relationModel = true
-  modelCase = "PascalCase"
-  modelSuffix = "Modal"
+  provider      = "zod-prisma"
+  output        = "./zod"
+  modelSuffix   = "Modal"
+  modelCase     = "PascalCase"
+  relationModel = "true"
 }
 
 datasource db {
@@ -24,30 +24,21 @@ model Post {
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
   published  Boolean      @default(false)
-  tagsOnPost TagsOnPost[]
+  categoryId Int
   category   Category     @relation(fields: [categoryId], references: [id])
-  categoryId Int 
+  tags Tag[]
 }
 
 model Tag {
   id         Int          @id @default(autoincrement())
   text       String
-  TagsOnPost TagsOnPost[]
-}
-
-model TagsOnPost {
-  post   Post @relation(fields: [postId], references: [id])
-  postId Int
-  tag    Tag  @relation(fields: [tagId], references: [id])
-  tagId  Int
-
-  @@id([postId, tagId])
+  posts Post[]
 }
 
 model Category {
-  id            Int       @id @default(autoincrement())
-  categoryName  String
-  posts         Post[] 
+  id           Int    @id @default(autoincrement())
+  categoryName String
+  posts        Post[]
 }
 
 model User {

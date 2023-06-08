@@ -82,7 +82,7 @@ export const PUT = (async ({ params, request }) => {
 
     const updatedData = await request.json();
 
-    
+    //TODO     
 
     const res = await prisma.post
         .update({

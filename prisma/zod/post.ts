@@ -1,5 +1,5 @@
 import * as z from "zod"
-import { CompleteTagsOnPost, RelatedTagsOnPostModal, CompleteCategory, RelatedCategoryModal } from "./index"
+import { CompleteCategory, RelatedCategoryModal, CompleteTag, RelatedTagModal } from "./index"
 
 export const PostModal = z.object({
   id: z.number().int(),
@@ -12,8 +12,8 @@ export const PostModal = z.object({
 })
 
 export interface CompletePost extends z.infer<typeof PostModal> {
-  tagsOnPost: CompleteTagsOnPost[]
   category: CompleteCategory
+  tags: CompleteTag[]
 }
 
 /**
@@ -22,6 +22,6 @@ export interface CompletePost extends z.infer<typeof PostModal> {
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
 export const RelatedPostModal: z.ZodSchema<CompletePost> = z.lazy(() => PostModal.extend({
-  tagsOnPost: RelatedTagsOnPostModal.array(),
   category: RelatedCategoryModal,
+  tags: RelatedTagModal.array(),
 }))

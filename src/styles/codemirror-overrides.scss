@@ -1,0 +1,27 @@
+.cm-editor {
+    border: none !important;
+    font-family: 'Roboto Mono', monospace !important;
+}
+
+.cm-gutters {
+    font-family: 'Roboto Mono', monospace !important;
+    border: none !important;
+
+    & * {
+        @apply bg-base-300;
+    }
+
+    .cm-gutter {
+        &.cm-lineNumbers {
+            border: none !important;
+        }
+    }
+
+    .cm-activeLineGutter {
+        @apply bg-base-100;
+    }
+}
+
+.cm-content {
+    font-family: 'Roboto Mono', monospace !important;
+}

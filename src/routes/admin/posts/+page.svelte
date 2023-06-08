@@ -33,7 +33,7 @@
 </script>
 
 <div class={"container mx-auto grid grid-cols-6 mt-20"}>
-    <a href={"/admin/posts/new"} class={"btn btn-primary gap-2 col-start-6"}>
+    <a href={"/admin/posts/editor"} class={"btn btn-primary gap-2 col-start-6"}>
         <span>New post</span>
         <Fa icon={faPlus} />
     </a>

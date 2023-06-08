@@ -3,7 +3,7 @@ import type { RequestHandler } from "./$types";
 import { z } from "zod";
 import prisma from "$lib/prisma";
 
-const loginSchema = z.object({
+const publishSchema = z.object({
     publish: z.boolean()
 });
 
@@ -14,7 +14,7 @@ export const PUT = (async ({ params, request }) => {
 
     const body = await request.json();
 
-    const validated = await loginSchema.safeParse(body);
+    const validated = await publishSchema.safeParse(body);
 
     if (!validated.success) {
         throw error(400, "Couldnt validate body, error: " + validated.error.errors.join(", "));
