@@ -1,5 +1,5 @@
 import prisma from "$lib/prisma";
-import { json, type RequestHandler } from "@sveltejs/kit";
+import { json, text, type RequestHandler, fail } from "@sveltejs/kit";
 
 export const GET = (async ({ }) => {
     const res = await prisma.post
@@ -14,7 +14,7 @@ export const GET = (async ({ }) => {
                 createdAt: true,
                 id: true,
                 published: true,
-                tagsOnPost: true,
+                tags: true,
                 title: true,
                 updatedAt: true
             }

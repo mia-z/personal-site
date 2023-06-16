@@ -11,10 +11,16 @@
             open = false;
         }
     }
+
+    const onKeyUp = (e: KeyboardEvent & { currentTarget: EventTarget & HTMLDivElement }) => {
+        if (e.key === "Escape") {
+            onDismiss();
+        }
+    }
 </script>
 
 {#if open}
-    <div transition:fade on:click={() => onDismiss()} on:keyup={() => onDismiss()} class={`absolute top-0 left-0 h-[100vh] w-[100vw] backdrop-blur-sm`}>
+    <div transition:fade on:click={() => onDismiss()} on:keyup={onKeyUp} class={`absolute top-0 left-0 h-[100vh] w-[100vw] backdrop-blur-sm`}>
         <div class={"py-5"}>
             <div on:click|stopPropagation on:keydown|stopPropagation transition:fly={{ y: 50 }} class={`m-auto bg-neutral rounded-md shadow-xl container xl:w-1/2 relative ${open && !canDismiss ? "border-warning border-2" : ""} `}>
                 {#if open && !canDismiss}
@@ -32,7 +38,7 @@
                                 <slot name="title" />
                             </h3>
                             <div class={"my-auto select-none ml-auto flex rounded-full transition-all cursor-pointer w-8 h-8 active:bg-neutral hover:bg-neutral-focus"}>
-                                <div class={"text-center m-auto"} on:click={() => onDismiss()} on:keyup={() => onDismiss()}>
+                                <div class={"text-center m-auto"} on:click={() => onDismiss()} on:keyup={onKeyUp}>
                                     <Fa icon={faXmark} class={"text-white"} />
                                 </div>
                             </div>

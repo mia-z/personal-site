@@ -1,19 +1,46 @@
 <script lang="ts">
+    import { enhance } from "$app/forms";
+    import { goto, invalidate, invalidateAll } from "$app/navigation";
     import Modal from "$components/Modal.svelte";
     import type { PageData } from "./$types";
     import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
     import type { Post } from "@prisma/client";
     import Fa from "svelte-fa";
+    import axios from "axios";
 
     export let data: PageData;
+
+    let createModalOpen = false;
+    let canDismissCreateModal = true;
+    let newPostTitle = "";
+    let createValidationErrors = {
+        postTitle: null,
+        postCategory: null
+    }
 
     let deleteModalOpen = false;
     let canDismissDeleteModal = true;
 
-    let postToDelete: Post | null = null;
+    let postToDelete: Post;
 
-    const onPublishPostToggle = async (event: HTMLInputElement, id: string) => {
-        console.log(event.checked);
+    $: busyRowIds = [-1];
+
+    const onPublishPostToggle = async (event: Event & { currentTarget: EventTarget & HTMLInputElement }, id: number) => {
+        busyRowIds = [...busyRowIds, id];
+        const publishRes = await axios.put("/api/admin/posts/publish/" + id, {
+            publish: event.currentTarget.checked
+        }, {
+            validateStatus: () => true
+        });
+
+        if (publishRes.status === 200) {
+            console.log("got 200, invalidating");
+            await invalidateAll();
+        } else {
+            console.log("not 200 from publish endpoint");
+            console.log(publishRes.status);
+        }
+        busyRowIds = busyRowIds.filter(x => x !== id);
     }
 
     const onDeletePostClick = (post: Post) =>  {
@@ -21,22 +48,23 @@
         deleteModalOpen = true;
     }
 
-    const deletePost = async (id: string) => {
+    const deletePost = async (id: string | number) => {
         canDismissDeleteModal = false;
-        const deleteRes = await fetch("/api/admin/posts/" + id, {
-            method: "DELETE"
+        const deleteRes = await axios.delete("/api/admin/posts/" + id, {
+            validateStatus: () => true
         });
         console.log(deleteRes);
+        await invalidateAll();
         canDismissDeleteModal = true;
         deleteModalOpen = false;
     }
 </script>
 
 <div class={"container mx-auto grid grid-cols-6 mt-20"}>
-    <a href={"/admin/posts/editor"} class={"btn btn-primary gap-2 col-start-6"}>
+    <button on:click={() => createModalOpen = true} class={"btn btn-primary gap-2 col-start-6"}>
         <span>New post</span>
         <Fa icon={faPlus} />
-    </a>
+    </button>
 </div>
 <div class={"container mx-auto mt-5"}>
     <table class={"table table-zebra w-full"}>
@@ -51,20 +79,22 @@
         </thead>
         <tbody>
             {#each data.posts as post(post.id)}
-                <tr class={"grid grid-cols-12 text-center"}>
-                    <td class={"col-span-1 flex"}><span class={"m-auto"}>{post.id}</span></td>
-                    <td class={"col-span-7 flex"}><span class={"m-auto"}>{post.title}</span></td>
+                <tr class={"grid grid-cols-12 text-center hover relative"}>
+                    {#if busyRowIds.some(x => x === post.id)}
+                        <div class={"absolute loading-border rounded-md flex top-0 left-0 w-full h-full backdrop-blur-[2px]"}>
+                            <span class={"m-auto z-50 h-10 w-10 loading loading-spinner loading-lg"}></span>
+                        </div>
+                    {/if}
+                    <td class={"col-span-1 hover flex"}><span class={"m-auto"}>{post.id}</span></td>
+                    <td class={"col-span-7 flex"}><a class={"w-full"} href={"/admin/posts/" + post.id}>{post.title}</a></td>
                     <td class={"col-span-2 flex"}><span class={"m-auto"}>{post.category.categoryName}</span></td>
                     <td class={"col-span-1 flex"}><span class={"m-auto"}>
-                        <div class={"form-control"}>
-                            <label class={"label cursor-pointer"}>
-                                <span class={"label-text"}></span> 
-                                <input type={"checkbox"} checked={post.published ? "checked" : ""} class={"checkbox checkbox-primary"} />
-                            </label>
-                        </div>
+                        <input on:click|preventDefault={(e) => onPublishPostToggle(e, post.id)} type={"checkbox"} checked={post.published ? true : false} class={"checkbox checkbox-primary"} />
                     </td>
                     <td class={"col-span-1 flex"}>
-                        <label on:click={() => onDeletePostClick(post)} on:keydown={() => onDeletePostClick(post)} for={"confirm-delete-post-modal"} class={"btn btn-secondary btn-sm m-auto"}><Fa icon={faTrash} />
+                        <button on:click={() => onDeletePostClick(post)} class={"btn btn-secondary btn-sm m-auto"}>
+                            <Fa icon={faTrash} />
+                        </button>
                     </td>
                 </tr>
             {/each}
@@ -89,3 +119,84 @@
         Deleting post..
     </div>
 </Modal>
+
+<Modal bind:open={createModalOpen} bind:canDismiss={canDismissCreateModal}>
+    <div slot="title">Create Post</div>
+    <div slot="content">
+        <form action="?/createPost" method="POST" use:enhance={async ({  }) => {
+            canDismissCreateModal = false;
+            return async ({ result, update }) =>{
+                if (result.type === "success") {
+                    goto(`/admin/posts/${result.data?.newPostId}/edit`);
+                } else if (result.type === "failure") {
+                    console.log(result);
+                    createValidationErrors = {
+                        postCategory: result.data?.errors?.fieldErrors?.postCategory?.join(""),
+                        postTitle: result.data?.errors?.fieldErrors?.postTitle?.join(""),
+                    }
+                    canDismissCreateModal = true;
+                    //return await update();
+                }
+            }
+        }}>
+            <div class={"flex flex-col"}>
+                <div class={"flex flex-row gap-x-2"}>
+                    <div class={"form-control flex-grow"}>
+                        <label for="postTitle" class={"label"}>
+                            <span class={"label-text"}>Post title</span>
+                            {#if createValidationErrors.postTitle}
+                                <span class={"label-text-alt text-error"}>{createValidationErrors.postTitle}</span>
+                            {/if}
+                        </label>
+                        <input class:input-error={createValidationErrors.postTitle} bind:value={newPostTitle} name="postTitle" type="text" placeholder="Title" class={"placeholder:text-center text-center input input-bordered w-full"} />
+                    </div>
+                    <div class={"form-control flex-grow"}>
+                        <label for="postCategory" class={"label"}>
+                            <span class={"label-text"}>Category</span>
+                            {#if createValidationErrors.postCategory}
+                                <span class={"label-text-alt text-error"}>{createValidationErrors.postCategory}</span>
+                            {/if}
+                        </label>
+                        <select name="postCategory" class:select-error={createValidationErrors.postCategory} class={"select select-bordered"}>
+                            <option selected disabled>Select category</option>
+                            {#each data.categories as category}
+                                <option value={category.id}>{category.categoryName}</option>
+                            {/each}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class={"divider"}></div>
+            <div class={"flex flex-row justify-around"}>
+                <button class={"btn btn-primary w-1/3"} type="button" on:click={() => createModalOpen = false}>
+                    Cancel
+                </button>
+                <button class={"btn btn-secondary w-1/3"} type="submit">
+                    Create
+                </button>
+            </div>
+        </form>
+    </div>
+    <div slot="no-dismiss-text">
+        Creating post..
+    </div>
+</Modal>
+
+<style lang="scss">
+    .loading-border {
+        animation: linearGradientMove .8s infinite linear;
+        background: 
+            linear-gradient(90deg, rgba(248, 113, 113, 0.4) 50%, transparent 0) repeat-x,
+            linear-gradient(90deg, rgba(248, 113, 113, 0.4) 50%, transparent 0) repeat-x,
+            linear-gradient(0deg, rgba(248, 113, 113, 0.4) 50%, transparent 0) repeat-y,
+            linear-gradient(0deg, rgba(248, 113, 113, 0.4) 50%, transparent 0) repeat-y;
+        background-size:32px 4px, 32px 4px, 4px 32px, 4px 32px;
+        background-position: 0 0, 0 100%, 0 0, 100% 0;
+    }
+
+    @keyframes linearGradientMove {
+        100% {
+            background-position: 32px 0, -32px 100%, 0 -32px, 100% 32px;
+        }
+    }
+</style>

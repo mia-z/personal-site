@@ -1,4 +1,5 @@
 import prisma from "$lib/prisma";
+import type { Post } from "@prisma/client";
 import { error, json, text, type RequestHandler } from "@sveltejs/kit";
 
 export const GET = (async ({ params }) => {
@@ -20,7 +21,6 @@ export const GET = (async ({ params }) => {
                 createdAt: true,
                 id: true,
                 published: true,
-                tagsOnPost: true,
                 title: true,
                 updatedAt: true
             }
@@ -70,7 +70,6 @@ export const PUT = (async ({ params, request }) => {
                 updatedAt: true,
                 id: true,
                 published: true,
-                tagsOnPost: true,
                 title: true,
                 content: true
             }
@@ -80,9 +79,7 @@ export const PUT = (async ({ params, request }) => {
         throw error(404, "Couldnt find existing post with id: " + params.id);
     }
 
-    const updatedData = await request.json();
-
-    //TODO     
+    const updatedData = await request.json() as Post;
 
     const res = await prisma.post
         .update({
@@ -90,7 +87,9 @@ export const PUT = (async ({ params, request }) => {
                 id: postToUpdate.id
             },
             data: {
-                
+                content: updatedData.content,
+                title: updatedData.title,
+                categoryId: updatedData.categoryId
             }
         })
     if (!res) {

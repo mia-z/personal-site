@@ -1,11 +1,10 @@
 import prisma from '$lib/prisma';
 import type { Post } from '@prisma/client';
 import type { PageServerLoad } from './$types';
-import type { Actions } from '@sveltejs/kit';
+import { fail, type Actions } from '@sveltejs/kit';
+import { z } from "zod";
 
-export const load = (async ({ url }) => {
-    const postId = url.searchParams.get("postId");
-
+export const load = (async ({ params: { postId } }) => {
     let postToEdit = null;
 
     if (postId) {
@@ -28,12 +27,3 @@ export const load = (async ({ url }) => {
     });
     return { categories: response, postToEdit };
 }) satisfies PageServerLoad;
-
-export const actions = {
-    create: async (event) => {
-        return { success: true, data: "Create" }
-    },
-    update: async (event) => {
-        return { success: true, data: "Update" }
-    }
-} satisfies Actions;

@@ -1,17 +1,14 @@
 <script lang="ts">
     import MarkdownEditor from "$components/MarkdownEditor.svelte";
     import Fa from "svelte-fa";
-    import { faArrowLeft, faBook, faSave, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+    import { faArrowLeft, faBook, faSave, faCircleXmark, faSpinner } from "@fortawesome/free-solid-svg-icons";
     import { goto } from "$app/navigation";
     import type { ActionData, PageServerData } from "./$types";
-    import type { Tag } from "@prisma/client";
-    import { enhance } from "$app/forms";
+    import axios from "axios";
 
     export let data: PageServerData;
 
     export let form: ActionData;
-
-    let isNewPost = !!!data.postToEdit;
 
     let markdownPreviewOpen: boolean;
 
@@ -26,7 +23,7 @@
     let postCategory = categories.find(x => x.id === postToEdit?.categoryId);
     let postTags = (postToEdit?.tags && postToEdit?.tags.length > 0) ? postToEdit?.tags.map(x => x.text) : [];
 
-    let editorForm: HTMLFormElement;
+    let savingPost = false;
 
     const onTagInput = (ev: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) => {
         if (ev.key === "Enter") {
@@ -38,50 +35,36 @@
     const onTagRemove = (tag: string) => {
         postTags = [ ...postTags.filter(x => x !== tag)];
     }
+
+    const savePost = async () => {
+        savingPost = true;
+        const saveRes = await axios.put("/api/admin/posts/" + postToEdit?.id, {
+            content: postContent,
+            categoryId: postCategory?.id,
+            title: postTitle
+        });
+        savingPost = false;
+        console.log(saveRes.status);
+    }
 </script>
 
-<div class={"absolute bottom-7 left-7 border-2 rounded-md shadow-lg bg-secondary w-24 h-10 flex"}>
-    <div class={"m-auto text-secondary-content"}>
-        {isNewPost ? "CREATING" : "EDITING"}
-    </div>
-</div>
-
-<form 
-    bind:this={editorForm} 
-    method="POST"
-    action={isNewPost ? "?/create" : "?/update"}
-    use:enhance={({ form, data, action, cancel, submitter }) => {
-        // `form` is the `<form>` element
-        // `data` is its `FormData` object
-        // `action` is the URL to which the form is posted
-        // `cancel()` will prevent the submission
-        // `submitter` is the `HTMLElement` that caused the form to be submitted
-
-        return async ({ result, update }) => {
-            // `result` is an `ActionResult` object
-            // `update` is a function which triggers the logic that would be triggered if this callback wasn't set
-            console.log(result);
-        };
-    }}
-    class={"container mx-auto flex flex-col lg:w-3/5 md:w-2/3 w-4/5 h-fit"}>
-    <!--Hacky way to stop form submitting on enter-press inside a text input-->
-    <button type="submit" disabled style="display: none" />
+<div class={"container mx-auto flex flex-col lg:w-3/5 md:w-2/3 w-4/5 h-fit"}>
     <div class={"grid grid-cols-6 grid-flow-row gap-x-4"}>
         <div class={"col-span-1 mt-auto"}>
             <button class={"btn btn-secondary btn-block"}>
-                <div on:click={() => goto("/admin/posts")} on:keyup={() => goto("/admin/posts")} class={"flex flex-row gap-x-1 justify-between"}>
+                <a href={"/admin/posts"} class={"flex flex-row gap-x-1 justify-between"}>
                     <Fa icon={faArrowLeft} />
                     <span class={"flex my-auto"}>
                         Back
                     </span>
-                </div>
+                </a>
             </button>
         </div>
         <div class={"col-start-2 col-span-3 form-control w-full mx-auto"}>
             <label for="title" class="label">
                 <span class="label-text">Post Title</span>
             </label>
-            <input type="text" name={"postTitle"} class={"input input-bordered"} />
+            <input bind:value={postTitle} type="text" name={"postTitle"} class={"input input-bordered"} />
         </div>
         <div class={"col-span-1 mt-auto"}>
             <button class={"btn btn-primary btn-block"} on:click={() => markdownPreviewOpen = true}>
@@ -94,23 +77,26 @@
             </button>
         </div>
         <div class={"col-span-1 mt-auto"}>
-            <button class={"btn btn-secondary btn-block"} type={"submit"}>
+            <button class:disabled={savingPost} disabled={savingPost} class={"btn btn-secondary btn-block"} type={"submit"} on:click={() => savePost()}>
                 <div class={"flex flex-row gap-x-1 justify-between"}>
                     <span class={"flex my-auto"}>
-                        Save
+                        {savingPost ? "Saving" : "Save"}
                     </span>
-                    <Fa icon={faSave} />
+                    {#if savingPost}
+                        <Fa icon={faSpinner} class={"text-accent mt-auto animate-spin text-4xl"} />
+                    {:else}
+                        <Fa icon={faSave} />
+                    {/if}
                 </div>
             </button>
         </div>
     </div>
     <div class={"grid grid-cols-2 grid-flow-row w-full mt-3 gap-x-3"}>
         <div class={"form-control col-span-1"}>
-            <input bind:value={currentTagText} placeholder={"Tags"} on:keydown={onTagInput} type="text" name="tag" class={"placeholder:italic transition-all focus:border-primary-focus input input-bordered"} />
+            <input bind:value={currentTagText} placeholder={"Tags"} on:keydown={onTagInput} type="text" class={"placeholder:italic transition-all focus:border-primary-focus input input-bordered"} />
         </div>
         <div class={"col-span-1"}>
-            <select name={"category"} class={"select select-bordered w-full"}>
-                <option value={null} selected>Select Category</option>
+            <select class={"select select-bordered w-full"}>
                 {#each categories as category}
                     <option selected={postCategory && postCategory.id === category.id ? true : false} value={category.id}>{category.categoryName}</option>
                 {/each}
@@ -128,9 +114,6 @@
                 {/each}
             </div>
         {/if}
-        <div class={"hidden"}>
-            <input name={"postTags"} value={postTags.join(",")} />
-        </div>
     </div>
     <div class={"mt-3 w-full border-[1px] border-base-content border-opacity-20 bg-base-100 transition-all rounded-md focus-within:border-primary-focus"}>
         <MarkdownEditor
@@ -141,4 +124,7 @@
     <div class={"hidden"}>
         <input name={"postContent"} value={postContent} />
     </div>
-</form>
+    <div class={"hidden"}>
+        <input name={"postId"} value={postToEdit?.id} />
+    </div>
+</div>
