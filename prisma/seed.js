@@ -3,7 +3,7 @@ import { compare, hash, genSalt } from "bcrypt";
 
 const prisma = new PrismaClient();
 
-export const HashAndSaltPassword  = async (password: string): Promise<string> => await hash(password, await genSalt(10));
+export const HashAndSaltPassword  = async (password) => await hash(password, await genSalt(10));
 
 const main = async () => {
     console.log("Starting initial seed");

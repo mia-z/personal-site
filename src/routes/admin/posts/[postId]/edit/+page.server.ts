@@ -1,8 +1,5 @@
-import prisma from '$lib/prisma';
-import type { Post } from '@prisma/client';
-import type { PageServerLoad } from './$types';
-import { fail, type Actions } from '@sveltejs/kit';
-import { z } from "zod";
+import prisma from "$lib/prisma";
+import type { PageServerLoad } from "./$types";
 
 export const load = (async ({ params: { postId } }) => {
     let postToEdit = null;
