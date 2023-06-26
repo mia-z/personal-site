@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { compare, hash, genSalt } from "bcrypt";
+import { hash, genSalt } from "bcrypt";
 
 const prisma = new PrismaClient();
 
@@ -7,8 +7,8 @@ export const HashAndSaltPassword  = async (password) => await hash(password, awa
 
 const main = async () => {
     console.log("Starting initial seed");
-
     console.log("Getting Adming User password from env 'POSTGRES_USER_ADMIN_PASSWORD'");
+
     const pass = process.env.POSTGRES_USER_ADMIN_PASSWORD;
 
     if (!pass) {
@@ -18,10 +18,17 @@ const main = async () => {
     console.log("Salting and Hashing password");
     const hashed = await HashAndSaltPassword(pass);
 
-    const user = await prisma.user.create({
+    await prisma.user.create({
         data: {
             name: "admin",
             passwordHash: hashed
+        }
+    });
+
+    console.log("Creating default category 'Projects'");
+    await prisma.category.create({
+        data: {
+            categoryName: "Projects"
         }
     });
 
