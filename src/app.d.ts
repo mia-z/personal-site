@@ -13,3 +13,5 @@ declare module "@fortawesome/pro-solid-svg-icons/index.es" {
 
 const themes = ["dark", "black", "luxury", "business", "coffee", "night", "halloween", "dracula"] as const;
 declare type DaisyThemes = typeof themes[number];
+
+export type SvelteDOMEvent<T> = Event & { currentTarget: EventTarget & T }

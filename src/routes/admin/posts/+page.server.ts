@@ -23,14 +23,17 @@ export const load = (async () => {
     });
 
     const categoriesResponse = await prisma.category.findMany();
-    
+
     return { posts: postsResponse, categories: categoriesResponse };
 }) satisfies PageServerLoad;
 
 export const actions = {
-    createPost: async ({ cookies, request, locals }) => {
-        const body = Object.fromEntries(await request.formData());
-        const validatedBody = createPostBody.safeParse(body);
+    createPost: async ({ request }) => {
+        const body = await request.formData();
+        const validatedBody = createPostBody.safeParse({
+            postTitle: body.get("postTitle"),
+            postCategory: body.get("postCategory")
+        });
 
         if (validatedBody.success) {
             console.log("creating")
@@ -49,7 +52,10 @@ export const actions = {
         } else {
             return fail(400, {
                 error: "Validation error",
-                errors: validatedBody.error.formErrors
+                errors: {
+                    title: validatedBody.error.formErrors.fieldErrors.postTitle?.join(", "),
+                    category: validatedBody.error.formErrors.fieldErrors.postCategory?.join(", ")
+                }
             });
         }
     }

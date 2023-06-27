@@ -2,21 +2,19 @@
     import { enhance } from "$app/forms";
     import { goto, invalidate, invalidateAll } from "$app/navigation";
     import Modal from "$components/Modal.svelte";
-    import type { PageData } from "./$types";
+    import type { ActionData, PageData } from "./$types";
     import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
     import type { Post } from "@prisma/client";
     import Fa from "svelte-fa";
     import axios from "axios";
+  import type { SvelteDOMEvent } from "../../../app";
 
     export let data: PageData;
+    export let form: ActionData;
 
     let createModalOpen = false;
     let canDismissCreateModal = true;
     let newPostTitle = "";
-    let createValidationErrors = {
-        postTitle: null,
-        postCategory: null
-    }
 
     let deleteModalOpen = false;
     let canDismissDeleteModal = true;
@@ -25,7 +23,7 @@
 
     $: busyRowIds = [-1];
 
-    const onPublishPostToggle = async (event: Event & { currentTarget: EventTarget & HTMLInputElement }, id: number) => {
+    const onPublishPostToggle = async (event: SvelteDOMEvent<HTMLInputElement>, id: number) => {
         busyRowIds = [...busyRowIds, id];
         const publishRes = await axios.put("/api/admin/posts/publish/" + id, {
             publish: event.currentTarget.checked
@@ -130,12 +128,8 @@
                     goto(`/admin/posts/${result.data?.newPostId}/edit`);
                 } else if (result.type === "failure") {
                     console.log(result);
-                    createValidationErrors = {
-                        postCategory: result.data?.errors?.fieldErrors?.postCategory?.join(""),
-                        postTitle: result.data?.errors?.fieldErrors?.postTitle?.join(""),
-                    }
                     canDismissCreateModal = true;
-                    //return await update();
+                    await update();
                 }
             }
         }}>
@@ -144,20 +138,20 @@
                     <div class={"form-control flex-grow"}>
                         <label for="postTitle" class={"label"}>
                             <span class={"label-text"}>Post title</span>
-                            {#if createValidationErrors.postTitle}
-                                <span class={"label-text-alt text-error"}>{createValidationErrors.postTitle}</span>
+                            {#if form?.errors?.title}
+                                <span class={"label-text-alt text-error"}>{form?.errors?.title}</span>
                             {/if}
                         </label>
-                        <input class:input-error={createValidationErrors.postTitle} bind:value={newPostTitle} name="postTitle" type="text" placeholder="Title" class={"placeholder:text-center text-center input input-bordered w-full"} />
+                        <input class:input-error={form?.errors?.title} bind:value={newPostTitle} name="postTitle" type="text" placeholder="Title" class={"placeholder:text-center text-center input input-bordered w-full"} />
                     </div>
                     <div class={"form-control flex-grow"}>
                         <label for="postCategory" class={"label"}>
                             <span class={"label-text"}>Category</span>
-                            {#if createValidationErrors.postCategory}
-                                <span class={"label-text-alt text-error"}>{createValidationErrors.postCategory}</span>
+                            {#if form?.errors?.category}
+                                <span class={"label-text-alt text-error"}>{form?.errors?.category}</span>
                             {/if}
                         </label>
-                        <select name="postCategory" class:select-error={createValidationErrors.postCategory} class={"select select-bordered"}>
+                        <select name="postCategory" class:select-error={form?.errors?.category} class={"select select-bordered"}>
                             <option selected disabled>Select category</option>
                             {#each data.categories as category}
                                 <option value={category.id}>{category.categoryName}</option>

@@ -107,9 +107,9 @@
                 {#each postTags as tag}
                     <div class={"badge badge-secondary gap-2"}>
                         {tag}
-                        <div on:click={() => onTagRemove(tag)} on:keydown={() => onTagRemove(tag)}>
+                        <button on:click={() => onTagRemove(tag)} on:keydown={() => onTagRemove(tag)}>
                             <Fa class={"hover:text-warning-content hover:cursor-pointer"} icon={faCircleXmark}/>
-                        </div>
+                        </button>
                     </div>
                 {/each}
             </div>
