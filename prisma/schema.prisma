@@ -2,14 +2,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator zod {
-  provider      = "zod-prisma"
-  output        = "./zod"
-  modelSuffix   = "Modal"
-  modelCase     = "PascalCase"
-  relationModel = "true"
-}
-
 datasource db {
   provider          = "postgresql"
   url               = env("POSTGRES_PRISMA_URL")
