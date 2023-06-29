@@ -24,7 +24,7 @@ export const GET = (async ({ params }) => {
                 title: true,
                 updatedAt: true
             }
-         });
+        });
     if (!res) {
         throw error(404);
     } else {
@@ -41,7 +41,7 @@ export const DELETE = (async ({ params }) => {
             where: {
                 id: parseInt(params?.id)
             }
-         });
+        });
     if (!res) {
         throw error(404);
     } else {
@@ -80,7 +80,7 @@ export const PUT = (async ({ params, request }) => {
     }
 
     const updatedData = await request.json() as Post;
-
+    console.log(updatedData)
     const res = await prisma.post
         .update({
             where: {

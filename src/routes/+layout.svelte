@@ -3,7 +3,9 @@
     import "../styles/globals.scss";
     import { onMount } from "svelte";
     import { themes } from "../constants";
-
+    import { SvelteToast } from '@zerodevx/svelte-toast'
+    import type { DaisyThemes } from "../app";
+    
     let theme: DaisyThemes = themes[0];
     let rootEle: HTMLHtmlElement | null;
 
@@ -40,5 +42,16 @@
     <slot />
 </div>
 
+<SvelteToast />
 
-
+<style>
+    :root {
+        --toastContainerTop: auto;
+        --toastContainerRight: auto;
+        --toastContainerBottom: 8rem;
+        --toastContainerLeft: calc(50vw - 8rem);
+        --toastContainerBorderRadius: 50px;
+        --toastBorderRadius: "6px";
+        --toastBarBackground: rgb(255 255 255);
+    }
+</style>

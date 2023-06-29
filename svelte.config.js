@@ -9,7 +9,8 @@ const config = {
 	kit: {
 		adapter: vercel(),
 		alias: {
-			"$components": "src/components"
+			"$components": "src/components",
+			"$schemas": "prisma/zod"
 		}
 	},
 };

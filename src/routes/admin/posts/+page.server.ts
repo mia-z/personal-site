@@ -52,10 +52,7 @@ export const actions = {
         } else {
             return fail(400, {
                 error: "Validation error",
-                errors: {
-                    title: validatedBody.error.formErrors.fieldErrors.postTitle?.join(", "),
-                    category: validatedBody.error.formErrors.fieldErrors.postCategory?.join(", ")
-                }
+                errors: validatedBody.error.format()
             });
         }
     }

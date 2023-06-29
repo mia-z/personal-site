@@ -2,10 +2,11 @@
     import { fade, fly } from "svelte/transition";
     import Fa from "svelte-fa";
     import { faXmark, faSpinner } from "@fortawesome/free-solid-svg-icons";
-    
+
     export let open: boolean;
     export let canDismiss: boolean = true;
-    
+    export let centered: boolean = false;
+
     const onDismiss = () => {
         if (open && canDismiss) {
             open = false;
@@ -20,12 +21,14 @@
 </script>
 
 {#if open}
-    <div transition:fade on:click={() => onDismiss()} on:keyup={onKeyUp} class={`absolute top-0 left-0 h-[100vh] w-[100vw] backdrop-blur-sm`}>
-        <div class={"py-5"}>
-            <div on:click|stopPropagation on:keydown|stopPropagation transition:fly={{ y: 50 }} class={`m-auto bg-neutral rounded-md shadow-xl container xl:w-1/2 relative ${open && !canDismiss ? "border-warning border-2" : ""} `}>
+    <div role={"dialog"} transition:fade on:click={() => onDismiss()} on:keyup={onKeyUp} class={`absolute top-0 left-0 h-[100vh] w-[100vw] backdrop-blur-sm`}>
+        <div class={"py-5 h-full flex"}>
+            <div role={"backdrop"} on:click|stopPropagation on:keydown|stopPropagation transition:fly={{ y: 50 }} class={`m-auto bg-neutral rounded-md shadow-xl container xl:w-1/2 relative ${open && !canDismiss ? "border-accent border-2 cursor-wait" : ""} `}>
                 {#if open && !canDismiss}
-                    <div transition:fade class={"absolute top-0 left-0 h-full w-full backdrop-blur-md z-40 rounded-lg flex flex-col gap-y-2"}>
-                        <Fa icon={faSpinner} class={"text-warning mt-auto animate-spin text-4xl"} />
+                    <div transition:fade class={"absolute top-0 left-0 h-full w-full backdrop-blur-sm z-40 rounded-lg flex flex-col gap-y-2"}>
+                        <div class={"text-accent mt-auto mx-auto  z-50"}>
+                            <span class={"loading loading-spinner"}></span>
+                        </div>
                         <div class={"mb-auto mx-auto text-xl text-primary-content"}>
                             <slot name="no-dismiss-text" />
                         </div>
@@ -38,9 +41,9 @@
                                 <slot name="title" />
                             </h3>
                             <div class={"my-auto select-none ml-auto flex rounded-full transition-all cursor-pointer w-8 h-8 active:bg-neutral hover:bg-neutral-focus"}>
-                                <div class={"text-center m-auto"} on:click={() => onDismiss()} on:keyup={onKeyUp}>
+                                <button class={"text-center m-auto"} on:click={() => onDismiss()}>
                                     <Fa icon={faXmark} class={"text-white"} />
-                                </div>
+                                </button>
                             </div>
                         </div>
                     </div>

@@ -1,9 +1,8 @@
 <script lang="ts">
-  import SvelteMarkdown from "svelte-markdown";
+    import SvelteMarkdown from "svelte-markdown";
     import type { PageData } from "./$types";
 
     export let data: PageData;
-
 </script>
 
 <a href={`/admin/posts/${data.post?.id}/edit`} class={"fixed  btn btn-primary"}>
@@ -11,5 +10,9 @@
 </a>
 
 <div class={"prose container mx-auto mt-5"}>
-    <SvelteMarkdown source={data.post?.content} />
+    {#if data.post?.content}
+        <SvelteMarkdown source={data.post?.content} />
+    {:else}
+        No content yet <!--TODO: UPDATE THIS !-->
+    {/if}
 </div>

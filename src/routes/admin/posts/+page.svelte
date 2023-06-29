@@ -7,7 +7,8 @@
     import type { Post } from "@prisma/client";
     import Fa from "svelte-fa";
     import axios from "axios";
-  import type { SvelteDOMEvent } from "../../../app";
+    import type { SvelteDOMEvent } from "../../../app";
+    import Blockable from "$components/Blockable.svelte";
 
     export let data: PageData;
     export let form: ActionData;
@@ -65,7 +66,7 @@
     </button>
 </div>
 <div class={"container mx-auto mt-5"}>
-    <table class={"table table-zebra w-full"}>
+    <table class={"table w-full"}>
         <thead>
             <tr class={"grid grid-cols-12 text-center"}>
                 <th class={"col-span-1"}>ID</th>
@@ -77,14 +78,9 @@
         </thead>
         <tbody>
             {#each data.posts as post(post.id)}
-                <tr class={"grid grid-cols-12 text-center hover relative"}>
-                    {#if busyRowIds.some(x => x === post.id)}
-                        <div class={"absolute loading-border rounded-md flex top-0 left-0 w-full h-full backdrop-blur-[2px]"}>
-                            <span class={"m-auto z-50 h-10 w-10 loading loading-spinner loading-lg"}></span>
-                        </div>
-                    {/if}
+                <Blockable as={"tr"} class={"grid grid-cols-12 text-center hover relative"} blocked={busyRowIds.some(x => x === post.id)}>
                     <td class={"col-span-1 hover flex"}><span class={"m-auto"}>{post.id}</span></td>
-                    <td class={"col-span-7 flex"}><a class={"w-full"} href={"/admin/posts/" + post.id}>{post.title}</a></td>
+                    <td class={"col-span-7 flex"}><a class={"w-full h-full flex"} href={"/admin/posts/" + post.id}><div class={"m-auto"}>{post.title}</div></a></td>
                     <td class={"col-span-2 flex"}><span class={"m-auto"}>{post.category.categoryName}</span></td>
                     <td class={"col-span-1 flex"}><span class={"m-auto"}>
                         <input on:click|preventDefault={(e) => onPublishPostToggle(e, post.id)} type={"checkbox"} checked={post.published ? true : false} class={"checkbox checkbox-primary"} />
@@ -94,7 +90,7 @@
                             <Fa icon={faTrash} />
                         </button>
                     </td>
-                </tr>
+                </Blockable>
             {/each}
         </tbody>
     </table>
@@ -138,20 +134,20 @@
                     <div class={"form-control flex-grow"}>
                         <label for="postTitle" class={"label"}>
                             <span class={"label-text"}>Post title</span>
-                            {#if form?.errors?.title}
-                                <span class={"label-text-alt text-error"}>{form?.errors?.title}</span>
+                            {#if form?.errors?.postTitle}
+                                <span class={"label-text-alt text-error"}>{form?.errors?.postTitle._errors.join(", ")}</span>
                             {/if}
                         </label>
-                        <input class:input-error={form?.errors?.title} bind:value={newPostTitle} name="postTitle" type="text" placeholder="Title" class={"placeholder:text-center text-center input input-bordered w-full"} />
+                        <input class:input-error={form?.errors?.postTitle} bind:value={newPostTitle} name="postTitle" type="text" placeholder="Title" class={"placeholder:text-center text-center input input-bordered w-full"} />
                     </div>
                     <div class={"form-control flex-grow"}>
                         <label for="postCategory" class={"label"}>
                             <span class={"label-text"}>Category</span>
-                            {#if form?.errors?.category}
-                                <span class={"label-text-alt text-error"}>{form?.errors?.category}</span>
+                            {#if form?.errors?.postCategory}
+                                <span class={"label-text-alt text-error"}>{form?.errors?.postCategory._errors.join(", ")}</span>
                             {/if}
                         </label>
-                        <select name="postCategory" class:select-error={form?.errors?.category} class={"select select-bordered"}>
+                        <select name="postCategory" class:select-error={form?.errors?.postCategory} class={"select select-bordered"}>
                             <option selected disabled>Select category</option>
                             {#each data.categories as category}
                                 <option value={category.id}>{category.categoryName}</option>
@@ -175,22 +171,3 @@
         Creating post..
     </div>
 </Modal>
-
-<style lang="scss">
-    .loading-border {
-        animation: linearGradientMove .8s infinite linear;
-        background: 
-            linear-gradient(90deg, rgba(248, 113, 113, 0.4) 50%, transparent 0) repeat-x,
-            linear-gradient(90deg, rgba(248, 113, 113, 0.4) 50%, transparent 0) repeat-x,
-            linear-gradient(0deg, rgba(248, 113, 113, 0.4) 50%, transparent 0) repeat-y,
-            linear-gradient(0deg, rgba(248, 113, 113, 0.4) 50%, transparent 0) repeat-y;
-        background-size:32px 4px, 32px 4px, 4px 32px, 4px 32px;
-        background-position: 0 0, 0 100%, 0 0, 100% 0;
-    }
-
-    @keyframes linearGradientMove {
-        100% {
-            background-position: 32px 0, -32px 100%, 0 -32px, 100% 32px;
-        }
-    }
-</style>

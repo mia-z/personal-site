@@ -18,6 +18,6 @@ export const GET = (async ({ }) => {
                 title: true,
                 updatedAt: true
             }
-         });
+        });
     return json(res);
 }) satisfies RequestHandler;

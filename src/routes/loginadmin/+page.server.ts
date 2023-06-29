@@ -13,19 +13,24 @@ const loginSchema = z.object({
 
 export const actions = {
     login: async ({ cookies, request, locals }) => {
-        const formData = Object.fromEntries(await request.formData());
+        const formData = await request.formData();
         
-        const validationResult = loginSchema.safeParse(formData);
+        const validationResult = loginSchema.safeParse({
+            username: formData.get("username"),
+            password: formData.get("password"),
+        });
         if (!validationResult.success) {
-            const errors = validationResult.error.format();
-            return fail(400, errors);
+            return fail(400, {
+                error: "Validation Error",
+                errors: validationResult.error.format()
+            });
         }
 
         const user = await prisma.user
             .findFirst({ where: { name: validationResult.data.username } });
 
         if (!user) {
-            return fail(400, { error: "Invalid username or password" });
+            return fail(400, { error: "Invalid username or password", errors: null });
         }
 
         const validPass = await VerifyPassword(validationResult.data.password, user.passwordHash);
@@ -33,10 +38,9 @@ export const actions = {
         if (validPass) {
             const cookieToken = jwt.sign(user.name, SECRET_JWT_CODE);
             cookies.set("token", cookieToken);
-            locals.username = user.name;
             return;
         } else {
-            return fail(400, { error: "Invalid username or password" });
+            return fail(400, { error: "Invalid username or password", errors: null });
         }
     }
 } satisfies Actions;

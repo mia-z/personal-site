@@ -23,18 +23,18 @@ model Post {
 
 model Tag {
   id         Int          @id @default(autoincrement())
-  text       String
+  text       String       
   posts Post[]
 }
 
 model Category {
-  id           Int    @id @default(autoincrement())
-  categoryName String
+  id           Int        @id @default(autoincrement())
+  categoryName String     @unique
   posts        Post[]
 }
 
 model User {
-  id           Int    @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   name         String
   passwordHash String
 }

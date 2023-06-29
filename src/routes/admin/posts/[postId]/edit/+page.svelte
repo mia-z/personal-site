@@ -2,25 +2,23 @@
     import MarkdownEditor from "$components/MarkdownEditor.svelte";
     import Fa from "svelte-fa";
     import { faArrowLeft, faBook, faSave, faCircleXmark, faSpinner } from "@fortawesome/free-solid-svg-icons";
-    import { goto } from "$app/navigation";
     import type { ActionData, PageServerData } from "./$types";
     import axios from "axios";
+    import { errorToast, notifyToast, successToast } from "$lib/toast";
 
     export let data: PageServerData;
-
     export let form: ActionData;
+
+    let categories = data.categories;
+    let postToEdit = data.postToEdit;
 
     let markdownPreviewOpen: boolean;
 
-    let categories = data.categories;
-
     let currentTagText = "";
-
-    let postToEdit = data.postToEdit;
 
     let postTitle = postToEdit?.title ?? "";
     let postContent = postToEdit?.content ?? "";
-    let postCategory = categories.find(x => x.id === postToEdit?.categoryId);
+    let postCategory = categories.find(x => x.id === postToEdit?.categoryId) ?? { id: -1 };
     let postTags = (postToEdit?.tags && postToEdit?.tags.length > 0) ? postToEdit?.tags.map(x => x.text) : [];
 
     let savingPost = false;
@@ -44,6 +42,7 @@
             title: postTitle
         });
         savingPost = false;
+        successToast("Saved post!");
         console.log(saveRes.status);
     }
 </script>
@@ -51,20 +50,18 @@
 <div class={"container mx-auto flex flex-col lg:w-3/5 md:w-2/3 w-4/5 h-fit"}>
     <div class={"grid grid-cols-6 grid-flow-row gap-x-4"}>
         <div class={"col-span-1 mt-auto"}>
-            <button class={"btn btn-secondary btn-block"}>
-                <a href={"/admin/posts"} class={"flex flex-row gap-x-1 justify-between"}>
+            <a href={"/admin/posts/" + postToEdit?.id} class={"btn btn-secondary btn-block flex flex-row gap-x-1"}>
                     <Fa icon={faArrowLeft} />
                     <span class={"flex my-auto"}>
                         Back
                     </span>
-                </a>
-            </button>
+            </a>
         </div>
         <div class={"col-start-2 col-span-3 form-control w-full mx-auto"}>
-            <label for="title" class="label">
+            <label for="postTitle" class="label">
                 <span class="label-text">Post Title</span>
             </label>
-            <input bind:value={postTitle} type="text" name={"postTitle"} class={"input input-bordered"} />
+            <input bind:value={postTitle} type="text"  id={"postTitle"} name={"postTitle"} class={"focus:border-primary-focus input input-bordered"} />
         </div>
         <div class={"col-span-1 mt-auto"}>
             <button class={"btn btn-primary btn-block"} on:click={() => markdownPreviewOpen = true}>
@@ -96,7 +93,7 @@
             <input bind:value={currentTagText} placeholder={"Tags"} on:keydown={onTagInput} type="text" class={"placeholder:italic transition-all focus:border-primary-focus input input-bordered"} />
         </div>
         <div class={"col-span-1"}>
-            <select class={"select select-bordered w-full"}>
+            <select bind:value={postCategory.id} class={"focus:border-primary-focus select select-bordered w-full focus:outline-none"}>
                 {#each categories as category}
                     <option selected={postCategory && postCategory.id === category.id ? true : false} value={category.id}>{category.categoryName}</option>
                 {/each}
