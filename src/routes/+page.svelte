@@ -15,12 +15,12 @@
 </script>
 
 <div class={"flex flex-col relative z-10 h-screen"}>
-    <img transition:fade draggable="false" src={"/me.jpg"} alt={"omg me"} class={"morphing-shadow mx-auto mt-3 md:mt-5 lg:mt-15 2xl:mt-20 w-3/4 md:h-64 md:w-64 lg:w-96 lg:h-96"} />
+    <img transition:fade draggable="false" src={"/me.jpg"} alt={"omg me"} class={"morphing-shadow mx-auto mt-3 md:mt-5 lg:mt-15 2xl:mt-20 w-2/3 sm:w-1/2  lg:w-96 lg:h-96"} />
     <div transition:fade|global class={"prose flex flex-col mt-10 mx-auto h-full"}>
         {#if loaded}
             <div in:fly={{ y: 50 }} class={"text-4xl text-center wix-madefor-text drop-shadow-lg"}><span class={"bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-300 text-transparent"}>r</span>yan</div>
-            <div transition:fade class={"flex flex-row gap-x-4 text-primary-content mt-5"}>
-                <div class={"underline relative cursor-pointer cute-hover-text transition-all"} on:mouseenter={() => leftTextHovered = true} on:mouseleave={() => leftTextHovered = false} in:fly={{ delay: 400, y: -30, x: 50 }}>
+            <div transition:fade class={"hidden md:flex flex-row gap-x-4 text-primary-content mt-5"}>
+                <div role={"hover"} class={"underline relative cursor-pointer cute-hover-text transition-all"} on:mouseenter={() => leftTextHovered = true} on:mouseleave={() => leftTextHovered = false} in:fly={{ delay: 400, y: -30, x: 50 }}>
                     Fullstack-web
                     {#if leftTextHovered}
                         <div class={"text-primary-content cursor-default absolute top-0 left-0"}>
@@ -39,7 +39,7 @@
                         </div>
                     {/if}
                 </div>
-                <div class={"underline relative cursor-pointer cute-hover-text transition-all"} on:mouseenter={() => rightTextHovered = true} on:mouseleave={() => rightTextHovered = false} in:fly={{ delay: 550, y: -30, x: -50 }}>
+                <div role={"hover"}  class={"underline relative cursor-pointer cute-hover-text transition-all"} on:mouseenter={() => rightTextHovered = true} on:mouseleave={() => rightTextHovered = false} in:fly={{ delay: 550, y: -30, x: -50 }}>
                     Systems Developer
                     {#if rightTextHovered}
                         <div class={"text-primary-content cursor-default absolute top-0 right-0"}>
@@ -57,6 +57,42 @@
                             </div>
                         </div>
                     {/if}
+                </div>
+            </div>
+            <div transition:fade class={"flex flex-col text-center md:hidden gap-x-4 text-primary-content mt-5"}>
+                <div class={"flex flex-col mb-5"}>
+                    <div in:fly={{ y: -50 }} class={"text-base-content underline text-2xl"}>
+                        Fullstack-web
+                    </div>
+                    <div in:fly={{ x: -30 }} out:fly={{ x: 50 }}>
+                        React/NextJS
+                    </div>
+                    <div in:fly={{ x: 30, delay: 100 }}>
+                        Svelte/Svelte<span class={"text-orange-400"}>Kit</span>
+                    </div>
+                    <div in:fly={{ x: -30, delay: 200 }}>
+                        Razor Pages/<span class={"text-purple-400"}>MVC</span>
+                    </div>
+                    <div in:fly={{ x: 30, delay: 300 }}>
+                        <span class={"text-green-400"}>NodeJS</span>/Deno/BunJS
+                    </div>
+                </div>
+                <div class={"flex flex-col"} in:fly={{ delay: 550 }}>
+                    <div in:fly={{ y: -100 }} class={"text-base-content underline text-2xl"}>
+                        Systems Developer
+                    </div>
+                    <div in:fly={{ x: 30, delay: 600 }}>
+                        <span class={"text-purple-600"}>C#</span>/.Net Framwork/Core
+                    </div>
+                    <div in:fly={{ x: -30, delay: 700 }}>
+                        SQL/<span class={"text-red-500"}>Redis</span>/GraphQL
+                    </div>
+                    <div in:fly={{  x: 30, delay: 800 }}>
+                        <span class={"text-blue-400"}>Docker</span>/Kubernetes
+                    </div>
+                    <div in:fly={{ x: -30, delay: 900 }}>
+                        MS Azure/<span class={"text-blue-400"}>G</span><span class={"text-red-400"}>o</span><span class={"text-yellow-400"}>o</span><span class={"text-blue-400"}>g</span><span class={"text-green-400"}>l</span><span class={"text-red-400"}>e</span> Cloud
+                    </div>
                 </div>
             </div>
             <div class={"divider my-3"} />
@@ -77,22 +113,11 @@
                     </a>
                 </div>
             </div>
-
         {/if}
     </div>
 </div>
 
 
-<style lang="scss">
-    .shimmer {
-        -webkit-mask: linear-gradient(-60deg, #bc36b7 30%, rgba(174, 22, 194, 0.552), #9a1a9a 70%) right/300% 100%;
-        background-repeat: no-repeat;
-        animation: shimmer 4s infinite;
-    }
+<style lang="postcss">
     
-    @keyframes shimmer {
-        0% {-webkit-mask-position:right}
-        85% {-webkit-mask-position:right}
-        100% {-webkit-mask-position:left}
-    }
 </style>
