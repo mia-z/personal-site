@@ -89,7 +89,8 @@ export const PUT = (async ({ params, request }) => {
             data: {
                 content: updatedData.content,
                 title: updatedData.title,
-                categoryId: updatedData.categoryId
+                categoryId: updatedData.categoryId,
+                description: updatedData.description
             }
         })
     if (!res) {
