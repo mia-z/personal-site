@@ -1,4 +1,5 @@
 import prisma from "$lib/prisma";
+import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
 export const load = (async ({ params: { postId } }) => {
@@ -16,10 +17,13 @@ export const load = (async ({ params: { postId } }) => {
         });
     }
 
+    if (!postToEdit) {
+        throw error(404, `Post with id ${postId} not found`);
+    }
     const response = await prisma.category.findMany({
         select: {
             categoryName: true,
-            id: true
+            id: true,
         },
     });
     return { categories: response, postToEdit };
