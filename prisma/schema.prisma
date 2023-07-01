@@ -20,7 +20,7 @@ model Post {
   updatedAt       DateTime     @updatedAt
   published       Boolean      @default(false)
   categoryId      Int
-  imageType       ImageType?   
+  imageType       ImageType?   @default(LINK)
   imageData       String?
   category        Category     @relation(fields: [categoryId], references: [id])
   tags            Tag[]
