@@ -5,6 +5,8 @@
     import type { ActionData, PageServerData } from "./$types";
     import axios from "axios";
     import { errorToast, notifyToast, successToast } from "$lib/toast";
+    import { fade, fly } from "svelte/transition";
+    import type { SvelteDOMEvent } from "../../../../../app";
 
     export let data: PageServerData;
     export let form: ActionData;
@@ -21,13 +23,14 @@
     let postCategory = categories.find(x => x.id === postToEdit?.categoryId) ?? { id: -1 };
     let postTags = (postToEdit?.tags && postToEdit?.tags.length > 0) ? postToEdit?.tags.map(x => x.text) : [];
     let postDescription = postToEdit?.description ?? "";
-    let postImageType = postToEdit?.imageType ?? "LINK";
+    let postImageType = postToEdit?.imageType ?? "BASE64";
     let postImageData = postToEdit?.imageData ?? "";
 
+    let postFileData: string;
+    let postFileDataFilename: string;
+
     let savingPost = false;
-const tags = [
-    "Tag One", "Second", "memes", "A very long tag to see how it gets handled", "A sixth Tag"
-]
+
     const onTagInput = (ev: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) => {
         if (ev.key === "Enter") {
             postTags = [ ...postTags, ev.currentTarget.value ]
@@ -35,20 +38,76 @@ const tags = [
         }
     }
 
+    const onSaveTag = async () => {
+        const saveTagRes = await axios.post("/api/admin/tags", {
+            tag: currentTagText
+        }, {
+            validateStatus: () => true
+        });
+    }
+
     const onTagRemove = (tag: string) => {
         postTags = [ ...postTags.filter(x => x !== tag)];
     }
 
     const savePost = async () => {
-        savingPost = true;
-        const saveRes = await axios.put("/api/admin/posts/" + postToEdit?.id, {
-            content: postContent,
-            categoryId: postCategory?.id,
-            title: postTitle
-        });
-        savingPost = false;
-        successToast("Saved post!");
-        console.log(saveRes.status);
+        if (clientPayloadValidator()) {
+            savingPost = true;
+            const saveRes = await axios.put("/api/admin/posts/" + postToEdit?.id, {
+                content: postContent,
+                categoryId: postCategory?.id,
+                title: postTitle,
+                description: postDescription,
+                imageData: postImageData,
+                imageType: postImageType
+            });
+            savingPost = false;
+            successToast("Saved post!");
+            console.log(saveRes.status);
+        }   
+    }
+
+    const onPostImageUpload = async (event: SvelteDOMEvent<HTMLInputElement>) => {
+        if (event.currentTarget.files && event.currentTarget.files[0]) {
+            switch (event.currentTarget.files[0].type) {
+                case "image/png":
+                case "image/jpg":
+                case "image/jpeg": console.log("Good image"); break;
+                default: errorToast("Please pick only png or jpeg images."); return;
+            }
+            const f = event.currentTarget.files[0];
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                if (typeof reader.result === "string") {
+                    postImageData = reader.result as string; //coercion needed here because TS couldnt infer the .valueOf()==="string" ???
+                    postFileData = postImageData;
+                    postFileDataFilename = f.name
+                    successToast("Image uploaded");
+                } else {
+                    errorToast("Bad image, try again.");
+                }
+                
+            }
+            reader.readAsDataURL(f);
+        }
+    }
+
+    const clientPayloadValidator = (): boolean => {
+        if (postTitle.length < 1) {
+            errorToast("Must enter a post title");
+            return false;
+        }
+
+        if (postTitle.length > 64) {
+            errorToast("Post title too long");
+            return false;
+        }
+
+        if (postDescription.length > 255) {
+            errorToast("Post description too long");
+            return false;
+        }
+        return true;
     }
 </script>
 
@@ -136,12 +195,12 @@ const tags = [
             </label>
             <div class={"flex flex-row space-x-2"}>
                 <input bind:value={currentTagText} id={"postTag"} placeholder={"Write tags here.."} on:keydown={onTagInput} type="text" class={"placeholder:italic transition-all focus:border-primary-focus input input-bordered grow muted-placeholder"} />
-                <button class={"btn btn-primary"}>
+                <button class={"btn btn-primary m-auto"}>
                     <Fa icon={faPlus} class={""} />
                 </button>
             </div>            
         </div>
-        <div class={"flex flex-row flex-wrap bg-base-200 rounded-lg mt-2 p-2"}>
+        <div class={"flex flex-row flex-wrap bg-base-200 rounded-lg mt-2 p-2 h-12"}>
             {#if postTags.length > 0}
                 <div class={"col-span-1 flex flex-row flex-wrap p-3 gap-2 justify-center"}>
                     {#each postTags as tag}
@@ -163,7 +222,36 @@ const tags = [
     <!--POST TAGS END-->
     <!--POST IMAGE START-->
     <div class={"grow"}>
-        picture
+        <div class={"form-control"}>
+            <label for="postTag" class="label">
+                <span class="label-text">Picture</span>
+            </label>
+            <div class={"flex flex-col rounded-lg bg-base-200 min-h-[6.5rem] transition-all"}>
+                <div class={"tabs tabs-boxed rounded-b-none flex flex-row justify-around"}>
+                    <a on:click={() => {postImageType = "LINK"; postImageData = ""}} href={"#"} class:tab-active={postImageType === "LINK"} class={`tab transition-all`}>Link</a> 
+                    <a on:click={() => {postImageType = "BASE64"; if (postFileData) postImageData = postFileData;}} href={"#"} class:tab-active={postImageType === "BASE64"} class={`tab transition-all`}>Upload Image</a> 
+                </div>
+                {#if postImageType === "LINK"}
+                    <div class={"h-full p-2 flex flex-col"}>
+                        <input bind:value={postImageData} type="text" placeholder={"Enter image uri.."} class={"focus:border-primary-focus input input-bordered muted-placeholder"} />
+                    </div>
+                {:else}
+                    <div class={"h-full flex flex-col p-2"}>
+                        <input id={"post-image-upload"} type={"file"} on:change={onPostImageUpload} class={"hidden"} />
+                        <label for={"post-image-upload"} placeholder={"Enter image uri.."} class={"btn btn-primary"}>Upload</label>
+                        {#if postFileDataFilename}
+                            <div class={"mx-auto text-sm italic"}>
+                                {postFileDataFilename}
+                            </div>
+                        {/if}
+
+                    </div>
+                {/if}
+                {#if postImageData && postImageData !== ""}
+                    <img src={postImageData} class={"w-28 m-auto my-3"} alt={"The image you linked above"} />
+                {/if}
+            </div>            
+        </div>
     </div>
     <!--POST IMAGE END-->
     <!--POST CONTENT START-->
@@ -174,10 +262,10 @@ const tags = [
         />
     </div>
     <!--POST CONTENT END-->
-    <div class={"hidden"}>
-        <input name={"postContent"} value={postContent} />
-    </div>
-    <div class={"hidden"}>
-        <input name={"postId"} value={postToEdit?.id} />
-    </div>
 </div>
+
+<style lang="scss">
+    .tabs-boxed {
+        @apply bg-base-100;
+    }
+</style>
