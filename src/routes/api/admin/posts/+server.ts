@@ -12,6 +12,9 @@ export const GET = (async ({ }) => {
                     }
                 },
                 createdAt: true,
+                slug: true,
+                slugIdentifier: true,
+                description: true,
                 id: true,
                 published: true,
                 tags: true,
