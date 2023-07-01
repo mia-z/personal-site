@@ -1,11 +1,7 @@
 import prisma from "$lib/prisma";
+import { newTagSchema } from "$lib/server/schemas/NewTagSchema";
 import { json, type RequestHandler } from "@sveltejs/kit";
 import { error } from "console";
-import { z } from "zod";
-
-const newTagSchema = z.object({
-    text: z.string().nonempty("Cannot give an empty string")
-});
 
 export const GET = (async ({ }) => {
     const res = await prisma.tag
@@ -14,7 +10,7 @@ export const GET = (async ({ }) => {
                 id: true,
                 text: true,
             }
-         });
+        });
     return json(res);
 }) satisfies RequestHandler;
 
