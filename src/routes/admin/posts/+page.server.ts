@@ -2,10 +2,11 @@ import prisma from '$lib/prisma';
 import { fail, text } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 import { z } from "zod";
+import { createSlug } from '$lib/utils';
 
 const createPostBody = z.object({
     postTitle: z.string().nonempty("Title cannot be empty"),
-    postCategory: z.string().nonempty("Must give valid ID")
+    postCategory: z.string().nonempty("Must give valid ID"),
 })
 .required({
     postTitle: true,
@@ -32,7 +33,7 @@ export const actions = {
         const body = await request.formData();
         const validatedBody = createPostBody.safeParse({
             postTitle: body.get("postTitle"),
-            postCategory: body.get("postCategory")
+            postCategory: body.get("postCategory"),
         });
 
         if (validatedBody.success) {
@@ -40,7 +41,9 @@ export const actions = {
             const createPostRes = await prisma.post.create({
                 data: {
                     title: validatedBody.data.postTitle,
-                    categoryId: parseInt(validatedBody.data.postCategory)
+                    categoryId: parseInt(validatedBody.data.postCategory),
+                    slug: `${createSlug(validatedBody.data.postTitle)}`,
+                    slugIdentifier: `${createSlug(validatedBody.data.postTitle)}-${crypto.randomUUID()}`
                 },
                 select: {
                     id: true
