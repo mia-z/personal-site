@@ -1,8 +1,14 @@
+/// <reference types="vitest" />
 import { sveltekit } from "@sveltejs/kit/vite";
 import type { UserConfig } from "vite";
 
 const config: UserConfig = {
-	plugins: [sveltekit()]
+	plugins: [sveltekit()],
+	test: {
+		include: [
+			"./__tests__/**/*.test.ts"
+		]
+	}
 };
 
 export default config;
