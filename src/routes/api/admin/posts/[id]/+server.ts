@@ -80,7 +80,7 @@ export const PUT = (async ({ params, request }) => {
     }
 
     const updatedData = await request.json() as Post;
-    console.log(updatedData)
+    console.log(updatedData);
     const res = await prisma.post
         .update({
             where: {
@@ -90,7 +90,9 @@ export const PUT = (async ({ params, request }) => {
                 content: updatedData.content,
                 title: updatedData.title,
                 categoryId: updatedData.categoryId,
-                description: updatedData.description
+                description: updatedData.description,
+                imageData: updatedData.imageData,
+                imageType: updatedData.imageType
             }
         })
     if (!res) {
