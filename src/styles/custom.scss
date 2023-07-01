@@ -22,3 +22,7 @@ div.action-list a {
         background-position: 32px 0, -32px 100%, 0 -32px, 100% 32px;
     }
 }
+
+.muted-placeholder {
+    @apply placeholder:opacity-50 placeholder:italic placeholder:text-sm;
+}
