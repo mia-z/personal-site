@@ -112,7 +112,7 @@ const tags = [
         <label for="postCategory" class="label">
             <span class="label-text">Category</span>
         </label>
-        <select bind:value={postCategory.id} class={"focus:border-primary-focus select select-bordered w-full focus:outline-none"}>
+        <select bind:value={postCategory.id} id={"postCategory"} class={"focus:border-primary-focus select select-bordered w-full focus:outline-none"}>
             {#each categories as category}
                 <option selected={postCategory && postCategory.id === category.id ? true : false} value={category.id}>{category.categoryName}</option>
             {/each}
@@ -131,11 +131,11 @@ const tags = [
     <!--POST TAGS START-->
     <div class={"w-1/2"}>
         <div class={"form-control"}>
-            <label for="postDescription" class="label">
+            <label for="postTag" class="label">
                 <span class="label-text">Tags</span>
             </label>
             <div class={"flex flex-row space-x-2"}>
-                <input bind:value={currentTagText} placeholder={"Write tags here.."} on:keydown={onTagInput} type="text" class={"placeholder:italic transition-all focus:border-primary-focus input input-bordered grow muted-placeholder"} />
+                <input bind:value={currentTagText} id={"postTag"} placeholder={"Write tags here.."} on:keydown={onTagInput} type="text" class={"placeholder:italic transition-all focus:border-primary-focus input input-bordered grow muted-placeholder"} />
                 <button class={"btn btn-primary"}>
                     <Fa icon={faPlus} class={""} />
                 </button>
@@ -160,10 +160,12 @@ const tags = [
             {/if}
         </div>
     </div>
+    <!--POST TAGS END-->
+    <!--POST IMAGE START-->
     <div class={"grow"}>
         picture
     </div>
-    <!--POST TAGS END-->
+    <!--POST IMAGE END-->
     <!--POST CONTENT START-->
     <div class={"mt-3 w-full border-[1px] border-base-content border-opacity-20 bg-base-100 transition-all rounded-md focus-within:border-primary-focus"}>
         <MarkdownEditor
