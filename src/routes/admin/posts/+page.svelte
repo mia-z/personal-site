@@ -26,7 +26,7 @@
 
     const onPublishPostToggle = async (event: SvelteDOMEvent<HTMLInputElement>, id: number) => {
         busyRowIds = [...busyRowIds, id];
-        const publishRes = await axios.put("/api/admin/posts/publish/" + id, {
+        const publishRes = await axios.put(`/api/admin/posts/${id}/publish/`, {
             publish: event.currentTarget.checked
         }, {
             validateStatus: () => true
