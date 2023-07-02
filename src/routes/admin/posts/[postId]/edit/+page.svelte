@@ -7,6 +7,7 @@
     import { errorToast, notifyToast, successToast } from "$lib/toast";
     import { fade, fly } from "svelte/transition";
     import type { SvelteDOMEvent } from "../../../../../app";
+    import { invalidateAll } from "$app/navigation";
 
     export let data: PageServerData;
     export let form: ActionData;
@@ -21,7 +22,7 @@
     let postTitle = postToEdit?.title ?? "";
     let postContent = postToEdit?.content ?? "";
     let postCategory = categories.find(x => x.id === postToEdit?.categoryId) ?? { id: -1 };
-    let postTags = (postToEdit?.tags && postToEdit?.tags.length > 0) ? postToEdit?.tags.map(x => x.text) : [];
+    $: postTags = (data.postToEdit?.tags && data.postToEdit?.tags.length > 0) ? data.postToEdit?.tags : [];
     let postDescription = postToEdit?.description ?? "";
     let postImageType = postToEdit?.imageType ?? "BASE64";
     let postImageData = postToEdit?.imageData ?? "";
@@ -31,23 +32,30 @@
 
     let savingPost = false;
 
-    const onTagInput = (ev: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) => {
+    const onTagInput = async (ev: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) => {
         if (ev.key === "Enter") {
-            postTags = [ ...postTags, ev.currentTarget.value ]
-            currentTagText = "";
+            await onSaveTag();
         }
     }
 
     const onSaveTag = async () => {
-        const saveTagRes = await axios.post("/api/admin/tags", {
-            tag: currentTagText
+        const saveTagRes = await axios.post(`/api/admin/posts/${postToEdit.id}/tag`, {
+            text: currentTagText
         }, {
             validateStatus: () => true
         });
+        currentTagText = "";
+        console.log(saveTagRes);
+        await invalidateAll();
     }
 
-    const onTagRemove = (tag: string) => {
-        postTags = [ ...postTags.filter(x => x !== tag)];
+    const onTagRemove = async (tagId: number) => {
+        const saveTagRes = await axios.delete(`/api/admin/posts/${postToEdit.id}/tag/${tagId}`, {
+            validateStatus: () => true
+        });
+        currentTagText = "";
+        console.log(saveTagRes);
+        await invalidateAll();
     }
 
     const savePost = async () => {
@@ -195,18 +203,18 @@
             </label>
             <div class={"flex flex-row space-x-2"}>
                 <input bind:value={currentTagText} id={"postTag"} placeholder={"Write tags here.."} on:keydown={onTagInput} type="text" class={"placeholder:italic transition-all focus:border-primary-focus input input-bordered grow muted-placeholder"} />
-                <button class={"btn btn-primary m-auto"}>
+                <button on:click={() => onSaveTag()} class={"btn btn-primary m-auto"}>
                     <Fa icon={faPlus} class={""} />
                 </button>
             </div>            
         </div>
-        <div class={"flex flex-row flex-wrap bg-base-200 rounded-lg mt-2 p-2 h-12"}>
+        <div class={"flex flex-row flex-wrap bg-base-200 rounded-lg mt-2 p-2 min-h-12"}>
             {#if postTags.length > 0}
                 <div class={"col-span-1 flex flex-row flex-wrap p-3 gap-2 justify-center"}>
                     {#each postTags as tag}
                         <div class={"badge badge-secondary gap-2"}>
-                            {tag}
-                            <button on:click={() => onTagRemove(tag)} on:keydown={() => onTagRemove(tag)}>
+                            {tag.text}
+                            <button on:click={() => onTagRemove(tag.id)} on:keydown={() => onTagRemove(tag.id)}>
                                 <Fa class={"hover:text-warning-content hover:cursor-pointer"} icon={faCircleXmark}/>
                             </button>
                         </div>
