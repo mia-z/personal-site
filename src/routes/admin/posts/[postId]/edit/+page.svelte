@@ -2,15 +2,13 @@
     import MarkdownEditor from "$components/MarkdownEditor.svelte";
     import Fa from "svelte-fa";
     import { faArrowLeft, faBook, faSave, faCircleXmark, faSpinner, faPlus } from "@fortawesome/free-solid-svg-icons";
-    import type { ActionData, PageServerData } from "./$types";
+    import type { PageServerData } from "./$types";
     import axios from "axios";
-    import { errorToast, notifyToast, successToast } from "$lib/toast";
-    import { fade, fly } from "svelte/transition";
+    import { errorToast, successToast } from "$lib/toast";
     import type { SvelteDOMEvent } from "../../../../../app";
     import { invalidateAll } from "$app/navigation";
 
     export let data: PageServerData;
-    export let form: ActionData;
 
     let categories = data.categories;
     let postToEdit = data.postToEdit;
