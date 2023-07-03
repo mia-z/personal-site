@@ -183,83 +183,94 @@
             {/each}
         </select>
     </div>
-    <!--POST CATEGORY END-->
-    <!--POST DESCRIPTION START-->
-    <div class={"w-full form-control"}>
-        <label for="postDescription" class="label">
-            <span class="label-text">Description</span>
-            <span class={`label-text-alt ${postDescription.length > 240 ? "block" : "hidden"} ${postDescription.length > 255 ? "text-error" : "text-success"}`}>{postDescription.length > 255 ? "Description too long - " : ""}{postDescription.length}/255</span>
-        </label>
-        <input bind:value={postDescription} type="text"  id={"postDescription"} name={"postDescription"} class={"focus:border-primary-focus input input-bordered muted-placeholder"} placeholder={"Write description here.."} />
-    </div>
-    <!--POST DESCRIPTION END-->
-    <!--POST TAGS START-->
-    <div class={"w-1/2"}>
-        <div class={"form-control"}>
-            <label for="postTag" class="label">
-                <span class="label-text">Tags</span>
-            </label>
-            <div class={"flex flex-row space-x-2"}>
-                <input bind:value={currentTagText} id={"postTag"} placeholder={"Write tags here.."} on:keydown={onTagInput} type="text" class={"placeholder:italic transition-all focus:border-primary-focus input input-bordered grow muted-placeholder"} />
-                <button on:click={() => onSaveTag()} class={"btn btn-primary m-auto"}>
-                    <Fa icon={faPlus} class={""} />
-                </button>
-            </div>            
+    <!--POST CATEGORY END--> 
+    <!--POST EXTRAS DRAW START-->
+    <div class={`collapse collapse-arrow bg-base-200 rounded-lg`}>
+        <input type={"checkbox"} class={""} />
+        <div class={"collapse-title text-lg"}>
+            Show/Hide extra options
         </div>
-        <div class={"flex flex-row flex-wrap bg-base-200 rounded-lg mt-2 p-2 min-h-12"}>
-            {#if postTags.length > 0}
-                <div class={"col-span-1 flex flex-row flex-wrap p-3 gap-2 justify-center"}>
-                    {#each postTags as tag}
-                        <div class={"badge badge-secondary gap-2"}>
-                            {tag.text}
-                            <button on:click={() => onTagRemove(tag.id)} on:keydown={() => onTagRemove(tag.id)}>
-                                <Fa class={"hover:text-warning-content hover:cursor-pointer"} icon={faCircleXmark}/>
-                            </button>
+        <div class={"collapse-content flex w-full flex-row flex-wrap gap-x-2 gap-y-2"}>
+            <!--POST DESCRIPTION START-->
+            <div class={"w-full form-control"}>
+                <label for="postDescription" class="label">
+                    <span class="label-text">Description</span>
+                    <span class={`label-text-alt ${postDescription.length > 240 ? "block" : "hidden"} ${postDescription.length > 255 ? "text-error" : "text-success"}`}>{postDescription.length > 255 ? "Description too long - " : ""}{postDescription.length}/255</span>
+                </label>
+                <input bind:value={postDescription} type="text"  id={"postDescription"} name={"postDescription"} class={"focus:border-primary-focus input input-bordered muted-placeholder"} placeholder={"Write description here.."} />
+            </div>
+            <!--POST DESCRIPTION END-->
+            <!--POST TAGS START-->
+            <div class={"w-1/2"}>
+                <div class={"form-control"}>
+                    <label for="postTag" class="label">
+                        <span class="label-text">Tags</span>
+                    </label>
+                    <div class={"flex flex-row space-x-2"}>
+                        <input bind:value={currentTagText} id={"postTag"} placeholder={"Write tags here.."} on:keydown={onTagInput} type="text" class={"placeholder:italic transition-all focus:border-primary-focus input input-bordered grow muted-placeholder"} />
+                        <button on:click={() => onSaveTag()} class={"btn btn-primary m-auto"}>
+                            <Fa icon={faPlus} class={""} />
+                        </button>
+                    </div>            
+                </div>
+                <div class={"flex flex-row flex-wrap bg-base-300 rounded-lg mt-2 p-2 min-h-12"}>
+                    {#if postTags.length > 0}
+                        <div class={"col-span-1 flex flex-row flex-wrap p-3 gap-2 justify-center"}>
+                            {#each postTags as tag}
+                                <div class={"badge badge-secondary gap-2"}>
+                                    {tag.text}
+                                    <button on:click={() => onTagRemove(tag.id)} on:keydown={() => onTagRemove(tag.id)}>
+                                        <Fa class={"hover:text-warning-content hover:cursor-pointer"} icon={faCircleXmark}/>
+                                    </button>
+                                </div>
+                            {/each}
                         </div>
-                    {/each}
+                    {:else}
+                        <div class={"m-auto italic opacity-50"}>
+                            No tags yet
+                        </div>
+                    {/if}
                 </div>
-            {:else}
-                <div class={"m-auto italic opacity-50"}>
-                    No tags yet
-                </div>
-            {/if}
-        </div>
-    </div>
-    <!--POST TAGS END-->
-    <!--POST IMAGE START-->
-    <div class={"grow"}>
-        <div class={"form-control"}>
-            <label for="postTag" class="label">
-                <span class="label-text">Picture</span>
-            </label>
-            <div class={"flex flex-col rounded-lg bg-base-200 min-h-[6.5rem] transition-all"}>
-                <div class={"tabs tabs-boxed rounded-b-none flex flex-row justify-around"}>
-                    <a on:click={() => {postImageType = "LINK"; postImageData = ""}} href={"#"} class:tab-active={postImageType === "LINK"} class={`tab transition-all`}>Link</a> 
-                    <a on:click={() => {postImageType = "BASE64"; if (postFileData) postImageData = postFileData;}} href={"#"} class:tab-active={postImageType === "BASE64"} class={`tab transition-all`}>Upload Image</a> 
-                </div>
-                {#if postImageType === "LINK"}
-                    <div class={"h-full p-2 flex flex-col"}>
-                        <input bind:value={postImageData} type="text" placeholder={"Enter image uri.."} class={"focus:border-primary-focus input input-bordered muted-placeholder"} />
-                    </div>
-                {:else}
-                    <div class={"h-full flex flex-col p-2"}>
-                        <input id={"post-image-upload"} type={"file"} on:change={onPostImageUpload} class={"hidden"} />
-                        <label for={"post-image-upload"} placeholder={"Enter image uri.."} class={"btn btn-primary"}>Upload</label>
-                        {#if postFileDataFilename}
-                            <div class={"mx-auto text-sm italic"}>
-                                {postFileDataFilename}
+            </div>
+            <!--POST TAGS END-->
+            <!--POST IMAGE START-->
+            <div class={"grow"}>
+                <div class={"form-control"}>
+                    <label for="postTag" class="label">
+                        <span class="label-text">Picture</span>
+                    </label>
+                    <div class={"flex flex-col rounded-lg bg-base-300 min-h-[6.5rem] transition-all"}>
+                        <div class={"tabs tabs-boxed rounded-b-none flex flex-row justify-around"}>
+                            <a on:click={() => {postImageType = "LINK"; postImageData = ""}} href={"#"} class:tab-active={postImageType === "LINK"} class={`tab transition-all`}>Link</a> 
+                            <a on:click={() => {postImageType = "BASE64"; if (postFileData) postImageData = postFileData;}} href={"#"} class:tab-active={postImageType === "BASE64"} class={`tab transition-all`}>Upload Image</a> 
+                        </div>
+                        {#if postImageType === "LINK"}
+                            <div class={"h-full p-2 flex flex-col"}>
+                                <input bind:value={postImageData} type="text" placeholder={"Enter image uri.."} class={"focus:border-primary-focus input input-bordered muted-placeholder"} />
+                            </div>
+                        {:else}
+                            <div class={"h-full flex flex-col p-2"}>
+                                <input id={"post-image-upload"} type={"file"} on:change={onPostImageUpload} class={"hidden"} />
+                                <label for={"post-image-upload"} placeholder={"Enter image uri.."} class={"btn btn-primary"}>Upload</label>
+                                {#if postFileDataFilename}
+                                    <div class={"mx-auto text-sm italic"}>
+                                        {postFileDataFilename}
+                                    </div>
+                                {/if}
+
                             </div>
                         {/if}
-
-                    </div>
-                {/if}
-                {#if postImageData && postImageData !== ""}
-                    <img src={postImageData} class={"w-28 m-auto my-3"} alt={"The image you linked above"} />
-                {/if}
-            </div>            
+                        {#if postImageData && postImageData !== ""}
+                            <img src={postImageData} class={"w-28 m-auto my-3"} alt={"The image you linked above"} />
+                        {/if}
+                    </div>            
+                </div>
+            </div>
+            <!--POST IMAGE END-->
         </div>
+        
     </div>
-    <!--POST IMAGE END-->
+    <!--POST EXTRAS DRAW END-->
     <!--POST CONTENT START-->
     <div class={"mt-3 w-full border-[1px] border-base-content border-opacity-20 bg-base-100 transition-all rounded-md focus-within:border-primary-focus"}>
         <MarkdownEditor
