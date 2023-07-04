@@ -1,7 +1,7 @@
 <script lang="ts">
     import MarkdownEditor from "$components/MarkdownEditor.svelte";
     import Fa from "svelte-fa";
-    import { faArrowLeft, faBook, faSave, faCircleXmark, faSpinner, faPlus } from "@fortawesome/free-solid-svg-icons";
+    import { faArrowLeft, faSave, faCircleXmark, faSpinner, faPlus } from "@fortawesome/free-solid-svg-icons";
     import type { PageServerData } from "./$types";
     import axios from "axios";
     import { errorToast, successToast } from "$lib/toast";
@@ -12,8 +12,6 @@
 
     let categories = data.categories;
     let postToEdit = data.postToEdit;
-
-    let markdownPreviewOpen: boolean;
 
     let currentTagText = "";
 
@@ -135,21 +133,9 @@
         </div>
     </div>
     <!--TITLE END-->
-    <!--PREVIEW BUTTON START-->
-    <div class={"w-1/6 mb-5"}>
-        <button class={"btn btn-primary btn-block"} on:click={() => markdownPreviewOpen = true}>
-            <div class={"flex flex-row gap-x-1 justify-between"}>
-                <span class={"flex my-auto"}>
-                    Preview
-                </span>
-                <Fa icon={faBook} />
-            </div>
-        </button>
-    </div>
-    <!--PREVIEW BUTTON END-->
     <!--SAVE BUTTON START-->
     <div class={"w-1/6 mb-5"}>
-        <button class:disabled={savingPost} disabled={savingPost} class={"btn btn-secondary btn-block"} type={"submit"} on:click={() => savePost()}>
+        <button class:disabled={savingPost} disabled={savingPost} class={"btn btn-primary btn-block"} type={"submit"} on:click={() => savePost()}>
             <div class={"flex flex-row gap-x-1 justify-between"}>
                 <span class={"flex my-auto"}>
                     {savingPost ? "Saving" : "Save"}
@@ -268,14 +254,12 @@
             </div>
             <!--POST IMAGE END-->
         </div>
-        
     </div>
     <!--POST EXTRAS DRAW END-->
     <!--POST CONTENT START-->
     <div class={"mt-3 w-full border-[1px] border-base-content border-opacity-20 bg-base-100 transition-all rounded-md focus-within:border-primary-focus"}>
         <MarkdownEditor
             bind:markdownString={postContent}
-            bind:showPreview={markdownPreviewOpen}
         />
     </div>
     <!--POST CONTENT END-->

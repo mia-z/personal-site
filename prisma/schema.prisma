@@ -24,6 +24,7 @@ model Post {
   imageData       String?
   category        Category     @relation(fields: [categoryId], references: [id])
   tags            Tag[]
+  unsplashFallback String?
 }
 
 model Tag {

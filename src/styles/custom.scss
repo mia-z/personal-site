@@ -27,3 +27,8 @@ div.action-list a {
     @apply placeholder:opacity-50 placeholder:italic placeholder:text-sm;
 }
 
+.pink-first-letter {
+    &::first-letter {
+        @apply bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-300 text-transparent
+    }
+}

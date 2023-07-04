@@ -3140,10 +3140,41 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/unist@npm:*, @types/unist@npm:^2.0.0":
+"@types/unist@npm:*, @types/unist@npm:^2.0.0, @types/unist@npm:^2.0.2, @types/unist@npm:^2.0.3":
   version: 2.0.6
   resolution: "@types/unist@npm:2.0.6"
   checksum: 25cb860ff10dde48b54622d58b23e66214211a61c84c0f15f88d38b61aa1b53d4d46e42b557924a93178c501c166aa37e28d7f6d994aba13d24685326272d5db
+  languageName: node
+  linkType: hard
+
+"@unpic/core@npm:^0.0.24":
+  version: 0.0.24
+  resolution: "@unpic/core@npm:0.0.24"
+  dependencies:
+    unpic: ^3.6.1
+  checksum: 889585035f05e3f478bb39b1015ce9464eb0f55f4cb003321e70db5b30775c4513b300e1bbcd43e196da3b24fcda1e42af091978a0d582ebf0add9d28aeb91d0
+  languageName: node
+  linkType: hard
+
+"@unpic/placeholder@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "@unpic/placeholder@npm:0.1.2"
+  dependencies:
+    blurhash: ^2.0.5
+  checksum: 00cbfb379a1167b5848d172334280ed4f685f5235a1602d36749f5f60ad16da6ef216da6fc3a50bf592fe81294a790f92e55274a2c2e04221a37aa2507fe35d2
+  languageName: node
+  linkType: hard
+
+"@unpic/svelte@npm:^0.0.25":
+  version: 0.0.25
+  resolution: "@unpic/svelte@npm:0.0.25"
+  dependencies:
+    "@unpic/core": ^0.0.24
+    style-object-to-css-string: ^1.0.1
+    unpic: ^3.6.1
+  peerDependencies:
+    svelte: "*"
+  checksum: 637e1ffaa70893a554292ffadbf4e65bb5484b541b333aba45cb4560bc4f58fb1fc3ca2b523a59b9bf817f70d038098aa5ddfd94810d4892e680a5e51f1e9845
   languageName: node
   linkType: hard
 
@@ -3925,6 +3956,13 @@ __metadata:
   version: 2.19.0
   resolution: "blueimp-md5@npm:2.19.0"
   checksum: 28095dcbd2c67152a2938006e8d7c74c3406ba6556071298f872505432feb2c13241b0476644160ee0a5220383ba94cb8ccdac0053b51f68d168728f9c382530
+  languageName: node
+  linkType: hard
+
+"blurhash@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "blurhash@npm:2.0.5"
+  checksum: aa4d6855bbaae116065b118a7b1e889648c15047e72048c28bab3db426a042ce1dc032a30c55a52da6140c314534841b984ab11cc68303668dde446d6ca53bc6
   languageName: node
   linkType: hard
 
@@ -7330,6 +7368,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mdsvex@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "mdsvex@npm:0.11.0"
+  dependencies:
+    "@types/unist": ^2.0.3
+    prism-svelte: ^0.4.7
+    prismjs: ^1.17.1
+    vfile-message: ^2.0.4
+  peerDependencies:
+    svelte: ">=3 <5"
+  checksum: 7265247c818ade5e7cbab926dcf9a348800a947440a22a69aed5c5d79f31913ef92f5c2311412a4e34a1a001508de7770976229f0949f9e2eec64726a4d06f13
+  languageName: node
+  linkType: hard
+
 "mdurl@npm:^1.0.0":
   version: 1.0.1
   resolution: "mdurl@npm:1.0.1"
@@ -7400,6 +7452,8 @@ __metadata:
     "@types/bcrypt": ^5.0.0
     "@types/jsonwebtoken": ^9.0.2
     "@types/node": ^20.1.1
+    "@unpic/placeholder": ^0.1.2
+    "@unpic/svelte": ^0.0.25
     "@vercel/postgres": ^0.2.1
     "@zerodevx/svelte-toast": latest
     autoprefixer: ^10.4.13
@@ -7411,6 +7465,7 @@ __metadata:
     jose: ^4.14.4
     jsonwebtoken: ^9.0.0
     lucide-svelte: ^0.256.0
+    mdsvex: ^0.11.0
     postcss: ^8.4.23
     postcss-nesting: ^11.3.0
     prisma: latest
@@ -8932,6 +8987,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prism-svelte@npm:^0.4.7":
+  version: 0.4.7
+  resolution: "prism-svelte@npm:0.4.7"
+  checksum: 7f3648ba67558eb510380587fecc511e903164f7c5eed856cbd16bbc00b144e1398eda84537f0e48cbc1a14cdb3835aba3a266f357848aa0e80f5b28d848d0b5
+  languageName: node
+  linkType: hard
+
 "prisma@npm:latest":
   version: 4.16.1
   resolution: "prisma@npm:4.16.1"
@@ -8941,6 +9003,13 @@ __metadata:
     prisma: build/index.js
     prisma2: build/index.js
   checksum: eb0f43970464fbaa6ba190a714f23d00acd39dcc14fd8a7183dffc51a548cc32040cc5360415787578749862af7501a7bedcf9f2a0e64a3f82e3af402e9439d7
+  languageName: node
+  linkType: hard
+
+"prismjs@npm:^1.17.1":
+  version: 1.29.0
+  resolution: "prismjs@npm:1.29.0"
+  checksum: 007a8869d4456ff8049dc59404e32d5666a07d99c3b0e30a18bd3b7676dfa07d1daae9d0f407f20983865fd8da56de91d09cb08e6aa61f5bc420a27c0beeaf93
   languageName: node
   linkType: hard
 
@@ -9979,6 +10048,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"style-object-to-css-string@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "style-object-to-css-string@npm:1.0.1"
+  checksum: 39338e7c8800e97d4b5c994772604356e1d8f50d91c738b3f7358189107fe6fc7aae76ad72bdaf6bb2ef724c265c4ec6e39adf6126eb4f7c9aba12cecfca4714
+  languageName: node
+  linkType: hard
+
 "style-to-object@npm:^0.4.1":
   version: 0.4.1
   resolution: "style-to-object@npm:0.4.1"
@@ -10748,6 +10824,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"unist-util-stringify-position@npm:^2.0.0":
+  version: 2.0.3
+  resolution: "unist-util-stringify-position@npm:2.0.3"
+  dependencies:
+    "@types/unist": ^2.0.2
+  checksum: f755cadc959f9074fe999578a1a242761296705a7fe87f333a37c00044de74ab4b184b3812989a57d4cd12211f0b14ad397b327c3a594c7af84361b1c25a7f09
+  languageName: node
+  linkType: hard
+
 "unist-util-stringify-position@npm:^3.0.0":
   version: 3.0.3
   resolution: "unist-util-stringify-position@npm:3.0.3"
@@ -10789,6 +10874,13 @@ __metadata:
   version: 2.0.0
   resolution: "universalify@npm:2.0.0"
   checksum: 2406a4edf4a8830aa6813278bab1f953a8e40f2f63a37873ffa9a3bc8f9745d06cc8e88f3572cb899b7e509013f7f6fcc3e37e8a6d914167a5381d8440518c44
+  languageName: node
+  linkType: hard
+
+"unpic@npm:^3.6.1":
+  version: 3.7.0
+  resolution: "unpic@npm:3.7.0"
+  checksum: 15168466b8cb82ad2df528c9d11b501b78001f131257745993df7db2ba1d5c48ffdeba6922708d8c8a24934b5c8b1775fb8d9c829f6ca26996423575ed8f35af
   languageName: node
   linkType: hard
 
@@ -10925,6 +11017,16 @@ __metadata:
     vc: dist/index.js
     vercel: dist/index.js
   checksum: 205e33486dc5a0f5fbb42773037bfbcef19dd2531e7813376147c3353d50afc0ecfcf41b4aa5902697eda9881af63446e2d9c649f54f67f2fd00115d2be0d72e
+  languageName: node
+  linkType: hard
+
+"vfile-message@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "vfile-message@npm:2.0.4"
+  dependencies:
+    "@types/unist": ^2.0.0
+    unist-util-stringify-position: ^2.0.0
+  checksum: 1bade499790f46ca5aba04bdce07a1e37c2636a8872e05cf32c26becc912826710b7eb063d30c5754fdfaeedc8a7658e78df10b3bc535c844890ec8a184f5643
   languageName: node
   linkType: hard
 

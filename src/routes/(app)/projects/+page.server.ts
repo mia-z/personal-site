@@ -1,7 +1,5 @@
 import prisma from '$lib/prisma';
-import { fail, text } from '@sveltejs/kit';
-import type { Actions, PageServerLoad } from './$types';
-import { z } from "zod";
+import type { PageServerLoad } from './$types';
 
 export const load = (async () => {
     const postsResponse = await prisma.post.findMany({
@@ -15,7 +13,7 @@ export const load = (async () => {
             published: true,
             category: {
                 categoryName: {
-                    mode: 'insensitive',
+                    mode: "insensitive",
                     contains: "projects"
                 }
             }

@@ -40,11 +40,9 @@
                             <h3 class={"my-auto select-none line-clamp-1 w-fit text-xl cursor-pointer text-neutral-content hover:bg-neutral-focus rounded-md transition-all p-1 px-2 font-bold"}>
                                 <slot name="title" />
                             </h3>
-                            <div class={"my-auto select-none ml-auto flex rounded-full transition-all cursor-pointer w-8 h-8 active:bg-neutral hover:bg-neutral-focus"}>
-                                <button class={"text-center m-auto"} on:click={() => onDismiss()}>
-                                    <Fa icon={faXmark} class={"text-white"} />
-                                </button>
-                            </div>
+                            <button on:click={() => onDismiss()} class={"my-auto select-none ml-auto flex rounded-full transition-all cursor-pointer w-8 h-8 active:bg-neutral hover:bg-neutral-focus"}>
+                                <Fa icon={faXmark} class={"text-white m-auto"} />
+                            </button>
                         </div>
                     </div>
                     <div class={"my-1 px-3 divider"}>
