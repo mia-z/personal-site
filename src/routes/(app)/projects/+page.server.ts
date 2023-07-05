@@ -2,7 +2,8 @@ import prisma from '$lib/prisma';
 import type { PageServerLoad } from './$types';
 
 export const config = {
-    runtime: "edge"
+    runtime: "edge",
+    platform: "node"
 }
 
 export const load = (async () => {

@@ -5,7 +5,8 @@ import { z } from "zod";
 import { createSlug } from '$lib/utils';
 
 export const config = {
-    runtime: "edge"
+    runtime: "edge",
+    platform: "node"
 }
 
 const createPostBody = z.object({

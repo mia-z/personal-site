@@ -3,6 +3,11 @@ import type { RequestHandler } from "./$types";
 import { z } from "zod";
 import prisma from "$lib/prisma";
 
+export const config = {
+    runtime: "edge",
+    platform: "node"
+}
+
 const publishSchema = z.object({
     publish: z.boolean()
 });

@@ -2,6 +2,11 @@ import prisma from "$lib/prisma";
 import type { Post } from "@prisma/client";
 import { error, json, text, type RequestHandler } from "@sveltejs/kit";
 
+export const config = {
+    runtime: "edge",
+    platform: "node"
+}
+
 export const GET = (async ({ params }) => {
     if (!params.id) {
         throw error(400);

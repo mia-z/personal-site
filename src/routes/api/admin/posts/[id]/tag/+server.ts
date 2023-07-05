@@ -3,6 +3,11 @@ import type { RequestHandler } from "./$types";
 import prisma from "$lib/prisma";
 import { z } from "zod";
 
+export const config = {
+    runtime: "edge",
+    platform: "node"
+}
+
 const tagSchema = z.object({
     text: z.string().nonempty()
 })
