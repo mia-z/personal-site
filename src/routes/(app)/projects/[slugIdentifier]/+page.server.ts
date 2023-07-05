@@ -4,6 +4,10 @@ import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import { compile } from "mdsvex";
 
+export const config = {
+    runtime: "edge"
+}
+
 export const load = (async ({ params }) => {
     const postResponse = await prisma.post.findFirst({
         include: {
