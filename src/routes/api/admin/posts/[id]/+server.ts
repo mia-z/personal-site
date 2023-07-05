@@ -3,8 +3,7 @@ import type { Post } from "@prisma/client";
 import { error, json, text, type RequestHandler } from "@sveltejs/kit";
 
 export const config = {
-    runtime: "edge",
-    platform: "node"
+    runtime: "nodejs18.x",
 }
 
 export const GET = (async ({ params }) => {

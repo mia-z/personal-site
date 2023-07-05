@@ -5,8 +5,7 @@ import type { PageServerLoad } from "./$types";
 import { compile } from "mdsvex";
 
 export const config = {
-    runtime: "edge",
-    platform: "node"
+    runtime: "nodejs18.x",
 }
 
 export const load = (async ({ params }) => {

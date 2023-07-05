@@ -3,10 +3,8 @@ import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
 export const config = {
-    runtime: "edge",
-    platform: "node"
+    runtime: "nodejs18.x",
 }
-
 export const load = (async ({ params: { postId } }) => {
     let postToEdit = null;
 

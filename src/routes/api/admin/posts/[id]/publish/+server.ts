@@ -4,8 +4,7 @@ import { z } from "zod";
 import prisma from "$lib/prisma";
 
 export const config = {
-    runtime: "edge",
-    platform: "node"
+    runtime: "nodejs18.x",
 }
 
 const publishSchema = z.object({

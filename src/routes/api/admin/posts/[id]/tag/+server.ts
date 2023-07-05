@@ -4,8 +4,7 @@ import prisma from "$lib/prisma";
 import { z } from "zod";
 
 export const config = {
-    runtime: "edge",
-    platform: "node"
+    runtime: "nodejs18.x",
 }
 
 const tagSchema = z.object({
