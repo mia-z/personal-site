@@ -4,6 +4,10 @@ import type { Actions, PageServerLoad } from './$types';
 import { z } from "zod";
 import { createSlug } from '$lib/utils';
 
+export const config = {
+    runtime: "edge"
+}
+
 const createPostBody = z.object({
     postTitle: z.string().nonempty("Title cannot be empty"),
     postCategory: z.string().nonempty("Must give valid ID"),
