@@ -38,7 +38,7 @@
     </select>
 </div> -->
 
-<div class={"min-h-[100vh] flex flex-col bg-base-300 relative select-none"}>
+<div class={"min-h-[100vh] flex flex-col relative select-none"}>
     <slot />
 </div>
 
