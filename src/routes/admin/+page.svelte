@@ -19,7 +19,7 @@
             trpc($page).admin.login.mutate(password)
                 .then(res => {
                     Cookie.set("_t", res);
-                    goto("/admin/start");
+                    goto("/admin/index");
                 })
                 .catch(e => {
                     if (e.message === "UNAUTHORIZED") {
