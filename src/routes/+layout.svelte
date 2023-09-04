@@ -9,6 +9,4 @@
     </title>
 </svelte:head>
 
-<div class={"min-h-[100vh] flex flex-col relative"}>
-    <slot />
-</div>
+<slot />

@@ -364,7 +364,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/free-brands-svg-icons@npm:^6.4.0":
+"@fortawesome/free-brands-svg-icons@npm:^6.4.2":
   version: 6.4.2
   resolution: "@fortawesome/free-brands-svg-icons@npm:6.4.2"
   dependencies:
@@ -373,7 +373,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/free-solid-svg-icons@npm:^6.4.0":
+"@fortawesome/free-solid-svg-icons@npm:^6.4.2":
   version: 6.4.2
   resolution: "@fortawesome/free-solid-svg-icons@npm:6.4.2"
   dependencies:
@@ -620,17 +620,6 @@ __metadata:
     rollup:
       optional: true
   checksum: 893d5805ac4121fc704926963a0ae4e79e9e2bc8d736c3b28499ab69a404cce5119ca3a4e0c3d3a81d62f1beb3966f35285c36935d94b061794f26e94fed4cd1
-  languageName: node
-  linkType: hard
-
-"@skeletonlabs/skeleton@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@skeletonlabs/skeleton@npm:2.0.0"
-  dependencies:
-    esm-env: 1.0.0
-  peerDependencies:
-    svelte: ^3.56.0 || ^4.0.0
-  checksum: 2469707fbfe6f3e58abec787d981914cdf32d9e924befcdb9410ea49e8b563b187ad16e8af4e688670a907a6e062b649fc4bca92078557901db1f746170dbc5f
   languageName: node
   linkType: hard
 
@@ -1354,6 +1343,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"colord@npm:^2.9":
+  version: 2.9.3
+  resolution: "colord@npm:2.9.3"
+  checksum: 95d909bfbcfd8d5605cbb5af56f2d1ce2b323990258fd7c0d2eb0e6d3bb177254d7fb8213758db56bb4ede708964f78c6b992b326615f81a18a6aaf11d64c650
+  languageName: node
+  linkType: hard
+
 "colorspace@npm:1.1.x":
   version: 1.1.4
   resolution: "colorspace@npm:1.1.4"
@@ -1426,6 +1422,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"css-selector-tokenizer@npm:^0.8":
+  version: 0.8.0
+  resolution: "css-selector-tokenizer@npm:0.8.0"
+  dependencies:
+    cssesc: ^3.0.0
+    fastparse: ^1.1.2
+  checksum: 1eb7ca7d2c21ede700a0fab7df4547198431c30ba62663d81a566a8abe6ab7524f627ce6c0bde63f34917e199b73be4081e449bd8faf107d155766204082aa0a
+  languageName: node
+  linkType: hard
+
 "css-tree@npm:^2.3.1":
   version: 2.3.1
   resolution: "css-tree@npm:2.3.1"
@@ -1442,6 +1448,19 @@ __metadata:
   bin:
     cssesc: bin/cssesc
   checksum: f8c4ababffbc5e2ddf2fa9957dda1ee4af6048e22aeda1869d0d00843223c1b13ad3f5d88b51caa46c994225eacb636b764eb807a8883e2fb6f99b4f4e8c48b2
+  languageName: node
+  linkType: hard
+
+"daisyui@npm:^3.6.5":
+  version: 3.6.5
+  resolution: "daisyui@npm:3.6.5"
+  dependencies:
+    colord: ^2.9
+    css-selector-tokenizer: ^0.8
+    postcss: ^8
+    postcss-js: ^4
+    tailwindcss: ^3
+  checksum: ea8a8e9bf41d79a2a18360e41ce9fd84565d8742484d847b60cf2d51e72d3155ac366649c3449fced744fa6187055fd47b3fc23255e162cee5bfa6c1f8f5ae5c
   languageName: node
   linkType: hard
 
@@ -1769,7 +1788,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esm-env@npm:1.0.0, esm-env@npm:^1.0.0":
+"esm-env@npm:^1.0.0":
   version: 1.0.0
   resolution: "esm-env@npm:1.0.0"
   checksum: 3372b918ebb213b2c31e9a6ebc437e1f20062363413f837b6ca4c47bda38d7ba983c3a1a8eb8d9d8434969e9366bba8632743f1b8c7cf637a9c8a25ae95d865e
@@ -1809,6 +1828,13 @@ __metadata:
     merge2: ^1.3.0
     micromatch: ^4.0.4
   checksum: b6f3add6403e02cf3a798bfbb1183d0f6da2afd368f27456010c0bc1f9640aea308243d4cb2c0ab142f618276e65ecb8be1661d7c62a7b4e5ba774b9ce5432e5
+  languageName: node
+  linkType: hard
+
+"fastparse@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "fastparse@npm:1.1.2"
+  checksum: c4d199809dc4e8acafeb786be49481cc9144de296e2d54df4540ccfd868d0df73afc649aba70a748925eb32bbc4208b723d6288adf92382275031a8c7e10c0aa
   languageName: node
   linkType: hard
 
@@ -2539,13 +2565,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "miaz@workspace:."
   dependencies:
-    "@fortawesome/free-brands-svg-icons": ^6.4.0
-    "@fortawesome/free-solid-svg-icons": ^6.4.0
+    "@fortawesome/free-brands-svg-icons": ^6.4.2
+    "@fortawesome/free-solid-svg-icons": ^6.4.2
     "@prisma/client": latest
     "@rollup/plugin-commonjs": ^24.1.0
     "@rollup/plugin-json": ^6.0.0
     "@rollup/plugin-node-resolve": ^15.0.2
-    "@skeletonlabs/skeleton": ^2.0.0
     "@skeletonlabs/tw-plugin": ^0.1.0
     "@sveltejs/adapter-auto": ^2.0.1
     "@sveltejs/adapter-vercel": ^2.4.3
@@ -2563,6 +2588,7 @@ __metadata:
     axios: ^1.4.0
     bcrypt: ^5.1.0
     cookie: ^0.5.0
+    daisyui: ^3.6.5
     es-cookie: ^1.4.0
     jsonwebtoken: ^9.0.0
     luxon: ^3.4.2
@@ -2572,7 +2598,7 @@ __metadata:
     sass: ^1.62.1
     svelte: latest
     svelte-check: ^3.4.4
-    svelte-fa: ^3.0.3
+    svelte-fa: ^3.0.4
     svelte-icons-pack: ^2.1.0
     svelte-preprocess: ^5.0.4
     tailwindcss: ^3.3.2
@@ -3086,7 +3112,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-js@npm:^4.0.1":
+"postcss-js@npm:^4, postcss-js@npm:^4.0.1":
   version: 4.0.1
   resolution: "postcss-js@npm:4.0.1"
   dependencies:
@@ -3150,6 +3176,17 @@ __metadata:
   version: 4.2.0
   resolution: "postcss-value-parser@npm:4.2.0"
   checksum: 819ffab0c9d51cf0acbabf8996dffbfafbafa57afc0e4c98db88b67f2094cb44488758f06e5da95d7036f19556a4a732525e84289a425f4f6fd8e412a9d7442f
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8":
+  version: 8.4.29
+  resolution: "postcss@npm:8.4.29"
+  dependencies:
+    nanoid: ^3.3.6
+    picocolors: ^1.0.0
+    source-map-js: ^1.0.2
+  checksum: dd6daa25e781db9ae5b651d9b7bfde0ec6e60e86a37da69a18eb4773d5ddd51e28fc4ff054fbdc04636a31462e6bf09a1e50986f69ac52b10d46b7457cd36d12
   languageName: node
   linkType: hard
 
@@ -3641,7 +3678,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"svelte-fa@npm:^3.0.3":
+"svelte-fa@npm:^3.0.4":
   version: 3.0.4
   resolution: "svelte-fa@npm:3.0.4"
   checksum: 275f76d467c6fa0596a7c11f664503f0e6aeba22bcaff612466aa1a28c37290d2846bc79b7beb1d8e5053788380d2275ed2c7f3ae2fb6c5e9d6ac97f53a6527d
@@ -3731,7 +3768,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^3.3.2":
+"tailwindcss@npm:^3, tailwindcss@npm:^3.3.2":
   version: 3.3.3
   resolution: "tailwindcss@npm:3.3.3"
   dependencies:

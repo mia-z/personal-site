@@ -1,16 +1,10 @@
 import { join } from "path";
 import type { Config } from "tailwindcss";
-import { skeleton } from "@skeletonlabs/tw-plugin";
-import forms from "@tailwindcss/forms";
 
 const config = {
 	darkMode: "class",
 	content: [
-        "src/**/*.{tsx,ts,js,jsx,html,svelte}",
-		join(require.resolve(
-			"@skeletonlabs/skeleton"),
-			"../**/*.{html,js,svelte,ts}"
-		)
+        "src/**/*.{tsx,ts,js,jsx,html,svelte}"
 	],
 	theme: {
         extend: {
@@ -21,9 +15,13 @@ const config = {
         },
     },
     plugins: [
-		forms,
-		skeleton({themes: { preset: [ "skeleton" ] } })
+		require("@tailwindcss/forms"),
+		require("@tailwindcss/typography"), 
+		require("daisyui")
 	],
+	daisyui: {
+		themes: ["dark", "black", "luxury", "business", "coffee", "night", "halloween", "dracula"]
+	}
 } satisfies Config;
 
 export default config;
