@@ -1,3 +1,3 @@
 <div>
-    admin index
+    admin start
 </div>
