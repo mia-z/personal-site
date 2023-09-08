@@ -13,6 +13,14 @@ const config = {
                 144: "36rem",
             },
         },
+		fontFamily: {
+			"roboto": [ "Roboto Flex" ],
+			"arimo": [ "Arimo" ],
+			"open-sans": [ "Open Sans" ],
+			"lobster": [ "Lobster" ],
+			"roboto-mono": [ "Roboto Mono" ],
+			"wix": [ "Wix Madefor Text" ]
+		}
     },
     plugins: [
 		require("@tailwindcss/forms"),

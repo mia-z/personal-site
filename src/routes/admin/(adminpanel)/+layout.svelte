@@ -30,13 +30,13 @@
                 <div class={"absolute top-0 left-0 w-full h-full glass opacity-20"}></div>
                 <img class={"w-20 m-auto"} src={"https://www.nevicar.com/imgs/wowee.png"} alt={"Wowee!"} />
             </div>
-            <ul class={"menu menu-lg p-4"}>
+            <ul class={"menu menu-lg p-4 font-bold font-wix"}>
                 <li><a href={"/admin/index"} class:active={$page.url.pathname.includes("index")}><Fa icon={faHouseUser} />Index</a></li>
                 <li><a href={"/admin/posts"} class:active={$page.url.pathname.includes("posts")}><Fa icon={faPenToSquare} />Posts</a></li>
                 <li><a href={"/admin/categories"} class:active={$page.url.pathname.includes("categories")}><Fa icon={faChartBar} />Categories</a></li>
             </ul>
             <ul class={"menu p-4 mt-auto"}>
-                <li class={"mt-auto "}><a class={"hover:bg-error hover:text-error-content"} href={"/admin"}><Fa icon={faRightFromBracket} />Log out</a></li>
+                <li class={"mt-auto "}><a class={"hover:bg-error hover:text-error-content"} href={"/admin"}><Fa class={"rotate-180"} icon={faRightFromBracket} />Log out</a></li>
             </ul>
         </div>
     </div>

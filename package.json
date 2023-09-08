@@ -21,6 +21,7 @@
     "@types/node": "^20.1.1",
     "@types/uuid": "^9.0.2",
     "autoprefixer": "^10.4.13",
+    "less": "^4.2.0",
     "postcss": "^8.4.23",
     "prisma": "latest",
     "sass": "^1.62.1",
@@ -56,11 +57,9 @@
     "svelte-icons-pack": "^2.1.0",
     "trpc-sveltekit": "^3.5.20",
     "uuid": "^9.0.0",
+    "vditor": "^3.9.5",
     "winston": "^3.10.0",
     "zod": "^3.21.4"
   },
-  "packageManager": "yarn@3.6.0",
-  "prisma": {
-    "seed": "node prisma/seed.js"
-  }
+  "packageManager": "yarn@3.6.0"
 }

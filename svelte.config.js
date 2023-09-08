@@ -10,7 +10,7 @@ const config = {
 		adapter: vercel(),
 		alias: {
 			"$components": "src/components",
-			"$schemas": "prisma/zod"
+			"$styles": "src/styles"
 		}
 	},
 };

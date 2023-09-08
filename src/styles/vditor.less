@@ -1,0 +1,58 @@
+@import "vditor/src/assets/less/index.less";
+
+.vditor {
+    --border-color: #141414;
+    --second-color: rgba(185, 185, 185, 0.36);
+
+    --panel-background-color: #24292e;
+    --panel-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
+
+    --toolbar-background-color: #1d2125;
+    --toolbar-icon-color: #b9b9b9;
+    --toolbar-icon-hover-color: #fff;
+
+    --textarea-background-color: #2f363d;
+    --textarea-text-color: #d1d5da;
+
+    --resize-icon-color: var(--border-color);
+    --resize-background-color: var(--second-color);
+    --resize-hover-icon-color: var(--toolbar-icon-hover-color);
+    --resize-hover-background-color: rgba(185, 185, 185, 0.86);
+
+    --count-background-color: rgba(@blurColor, 0.36);
+    --heading-border-color: var(--textarea-text-color);
+    --blockquote-color: var(--toolbar-icon-color);
+
+    --ir-heading-color: #9876aa;
+    --ir-title-color: #808080;
+    --ir-bi-color: #cc7832;
+    --ir-link-color: #ffc66d;
+    --ir-bracket-color: #287bde;
+    --ir-paren-color: #6a8759;
+
+    color: red;
+
+    @apply rounded-2xl border-none shadow-lg;
+
+    .vditor-content, .vditor-outline, .vditor-ir, .vditor-reset, .vditor-wysiwyg {
+        @apply rounded-b-2xl !bg-base-200;
+    }
+
+    .vditor-sv {
+        @apply rounded-bl-2xl rounded-br-none;
+    }
+
+    .vditor-preview {
+        @apply rounded-br-2xl !bg-base-200;
+    }
+
+    .vditor-toolbar {
+        @apply rounded-t-2xl bg-base-200 border-b-base-300;
+    }
+
+    .vditor-reset {
+        * {
+            @apply text-base-content;
+        }
+    }
+}
