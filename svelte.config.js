@@ -1,5 +1,5 @@
 import { vitePreprocess } from "@sveltejs/kit/vite";
-import vercel from "@sveltejs/adapter-vercel";
+import adapter from "@sveltejs/adapter-auto";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -7,7 +7,7 @@ const config = {
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
 	kit: {
-		adapter: vercel(),
+		adapter: adapter(),
 		alias: {
 			"$components": "src/components",
 			"$styles": "src/styles"
