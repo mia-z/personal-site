@@ -11,24 +11,23 @@ const config = {
             spacing: {
                 128: "32rem",
                 144: "36rem",
+                160: "40rem",
+                176: "44rem",
+                192: "48rem",
+                208: "52rem"
+            },
+            fontFamily: {
+                "lobster": ["Lobster", "cursive"],
+                "open-sans": ["Open Sans", "sans-serif"],
+                "arimo": ["Arimo"],
+                "roboto": ["Roboto Flex", "sans-serif"],
+                "roboto-monospace": ["Roboto Mono", "monospace"],
+                "wix-madefor-text": ["Wix Madefor Text", "sans-serif"],
+                "nunito": ["Nunito Sans", "sans-serif"],
             },
         },
-		fontFamily: {
-			"roboto": [ "Roboto Flex" ],
-			"arimo": [ "Arimo" ],
-			"open-sans": [ "Open Sans" ],
-			"lobster": [ "Lobster" ],
-			"roboto-mono": [ "Roboto Mono" ],
-			"wix": [ "Wix Madefor Text" ]
-		}
     },
-    plugins: [
-		require("@tailwindcss/typography"), 
-		require("daisyui")
-	],
-	daisyui: {
-		themes: ["dark", "black", "luxury", "business", "coffee", "night", "halloween", "dracula"]
-	}
+    plugins: []
 } satisfies Config;
 
 export default config;

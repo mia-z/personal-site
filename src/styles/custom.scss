@@ -1,9 +1,9 @@
 div.action-list a {
-    @apply bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-300  hover:text-transparent transition-all p-0 my-2 mx-auto;
+    @apply bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-300  text-transparent transition-all p-0 my-2 mx-auto;
 }
 
 .cute-hover-text {
-    @apply bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-300  hover:text-transparent;
+    @apply bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-300 text-transparent;
 }
 
 @keyframes linearGradientMove {
