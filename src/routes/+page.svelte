@@ -55,7 +55,7 @@
                 </div>
                 <div class={"flex flex-col mt-4"}>
                     <div class={"text-zinc-100 text-lg hover:text-fuchsia-400 transition-all"}>
-                        <a class={"underline"} href={"https://github.com/mia-z/capacitor-websocket"}>omnichat-overlay</a>&nbsp;<span class={"cute-hover-text transition-all"}>(current)</span>
+                        <a class={"underline"} href={"https://github.com/mia-z/omnichat-overlay"}>omnichat-overlay</a>&nbsp;<span class={"cute-hover-text transition-all"}>(current)</span>
                     </div>
                     <div class={"text-sm italic text-zinc-200/90"}>
                         cross platform desktop app for providing an overlay<br/> for multiple chat sources for streaming applications.
