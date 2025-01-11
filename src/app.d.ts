@@ -15,3 +15,10 @@ const themes = ["dark", "black", "luxury", "business", "coffee", "night", "hallo
 export type DaisyThemes = typeof themes[number];
 
 export type SvelteDOMEvent<T> = Event & { currentTarget: EventTarget & T }
+
+export type ProjectInfo = {
+	title: string,
+	description: string,
+	isCurrent: boolean,
+	link: string
+}

@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Sa11y",
+        "description": "online platform for easily analyzing and solving web accessibility issues",
+        "isCurrent": true,
+        "link": "https://portsally.com"
+    },
+    {
+        "title": "mAudit",
+        "description": "lightweight database auditor for Entity Framework",
+        "isCurrent": true,
+        "link": ""
+    },
+    {
+        "title": "dgg-capacitor-app",
+        "description": "cross platform mobile app for destiny.gg, made with Capacitor.",
+        "isCurrent": false,
+        "link": "https://github.com/mia-z/dgg-capacitor-app"
+    },
+    {
+        "title": "capacitor-websocket",
+        "description": "websocket plugin for capacitor that uses native implementations for iOS, Android and Web.",
+        "isCurrent": false,
+        "link": "https://github.com/mia-z/capacitor-websocket"
+    }
+]
