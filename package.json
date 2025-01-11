@@ -33,5 +33,6 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@tailwindcss/typography": "^0.5.16",
     "svelte-fa": "^4.0.3"
-  }
+  },
+  "packageManager": "bun@1"
 }
